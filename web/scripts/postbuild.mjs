@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { mergeFlightScripts } from "./flight-merge.mjs";
 
 const OUT = fileURLToPath(new URL("../out/", import.meta.url));
 const EXPLORERS = ["https://robinhoodchain.blockscout.com", "https://explorer.testnet.chain.robinhood.com"];
@@ -41,6 +42,11 @@ function csp(h) {
 }
 
 const pages = walk(OUT).filter((f) => f.endsWith(".html"));
+for (const p of pages) {
+  const before = readFileSync(p, "utf8");
+  const after = mergeFlightScripts(before);
+  if (after !== before) writeFileSync(p, after);
+}
 const lines = [
   "/*",
   "  X-Content-Type-Options: nosniff",
@@ -62,6 +68,11 @@ for (const p of pages) {
   longest = Math.max(longest, value.length);
   for (const r of new Set([route, `/${rel}`])) lines.push(r, "  ! Content-Security-Policy", `  Content-Security-Policy: ${value}`, "");
 }
-if (longest > 2000) throw new Error(`a CSP header is ${longest} characters; Cloudflare's limit is 2000`);
+if (longest > 2000) {
+  const msg = `a CSP header is ${longest} characters; Cloudflare's limit is 2000`;
+  // Cloudflare Pages sets CF_PAGES=1 during its builds. Elsewhere (other hosts ignore _headers) this is only a warning.
+  if (process.env.CF_PAGES === "1" || process.env.STRICT_CSP_LIMIT === "1") throw new Error(msg);
+  console.warn(`warning: ${msg}`);
+}
 writeFileSync(join(OUT, "_headers"), `${lines.join("\n")}\n`);
 console.log(`_headers written for ${pages.length} pages, longest CSP ${longest} chars`);
