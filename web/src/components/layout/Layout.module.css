@@ -224,3 +224,21 @@
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
+
+.signal,
+.signalTick {
+  display: inline-block;
+  width: var(--space-4);
+  height: var(--space-8);
+  margin-inline-end: var(--space-8);
+  background: var(--line-strong);
+}
+
+.signalTick {
+  background: var(--starlight);
+  animation: block-tick var(--instrument-trace) var(--ease-out);
+}
+
+@keyframes block-tick {
+  from { transform: scaleY(var(--instrument-star-scale)); }
+}

@@ -51,6 +51,7 @@ export function Button({
       type={type}
       className={classes}
       data-state={forceState}
+      data-magnet={variant === "primary" ? "" : undefined}
       aria-busy={loading || undefined}
       aria-label={iconOnly ? label : undefined}
       {...rest}

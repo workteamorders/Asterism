@@ -7,6 +7,7 @@
 }
 
 .heroFrame {
+  position: relative;
   aspect-ratio: 1 / 1;
   outline: var(--border) solid var(--line-strong);
   background: var(--art-ground);

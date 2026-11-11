@@ -16,7 +16,10 @@ export function BlockReadout() {
   return (
     <p className={styles.readoutLine} aria-live="off">
       <span>CHAIN {chain.id}</span>
-      <span>{q.data ? `BLOCK ${q.data.toLocaleString("en-US")}` : q.isError ? "CHAIN NOT REACHABLE" : "READING CHAIN"}</span>
+      <span>
+        <i key={q.data?.toString()} className={q.data === undefined ? styles.signal : styles.signalTick} aria-hidden="true" />
+        {q.data !== undefined ? `BLOCK ${q.data.toLocaleString("en-US")}` : q.isError ? "CHAIN NOT REACHABLE" : "READING CHAIN"}
+      </span>
     </p>
   );
 }

@@ -18,6 +18,7 @@ import { Icon } from "../icon/Icon";
 import { Readout } from "../readout/Readout";
 import { Skeleton } from "../skeleton/Skeleton";
 import { EmptyState, ErrorState } from "../state/States";
+import { ConstellationTrace } from "../asterism/ConstellationTrace";
 import styles from "./Gallery.module.css";
 
 const ZERO = "0x0000000000000000000000000000000000000000";
@@ -59,12 +60,13 @@ function ExampleDetail({ id }: { id: number }) {
   return (
     <>
       <figure className={styles.detailArt}>
-        <span className={styles.frame}>
+        <span className={styles.frame} data-constellation tabIndex={0}>
           {/* eslint-disable-next-line @next/next/no-img-element -- data URI SVG */}
           <img src={asterismUri(EXAMPLE_SEED, id)} alt={`Example asterism ${id}.`} width={400} height={400} />
+          <ConstellationTrace geometry={asterismFor(EXAMPLE_SEED, id)} />
         </span>
       </figure>
-      <section className={styles.detailInfo} aria-labelledby="detail-title">
+      <section className={styles.detailInfo} data-inspection aria-labelledby="detail-title">
         <h2 className="t-h3" id="detail-title">
           Asterism #{id}
         </h2>
@@ -116,17 +118,19 @@ function LiveDetail({ id }: { id: number }) {
   const meta = decodeTokenUri(info.data.uri);
   const onchainSvg = meta.image.startsWith("data:image/svg+xml;base64,") ? atob(meta.image.slice(26)) : "";
   const revealed = st.data.revealed;
-  const matches = revealed ? onchainSvg === renderAsterismSvg(asterismFor(st.data.seed, id), info.data.name) : null;
+  const geometry = revealed ? asterismFor(st.data.seed, id) : null;
+  const matches = geometry ? onchainSvg === renderAsterismSvg(geometry, info.data.name) : null;
   return (
     <>
       <figure className={styles.detailArt}>
-        <span className={styles.frame}>
+        <span className={styles.frame} data-constellation={matches ? "" : undefined} tabIndex={matches ? 0 : undefined}>
           {/* eslint-disable-next-line @next/next/no-img-element -- on-chain SVG */}
           <img src={svgUri(onchainSvg)} alt={`Asterism ${id} as rendered by the contract${revealed ? "" : ", not yet revealed"}.`} width={400} height={400} />
+          {matches && geometry ? <ConstellationTrace geometry={geometry} /> : null}
         </span>
         <figcaption className="t-small t-muted">Image returned by tokenURI on-chain.</figcaption>
       </figure>
-      <section className={styles.detailInfo} aria-labelledby="detail-title">
+      <section className={styles.detailInfo} data-inspection aria-labelledby="detail-title">
         <h2 className="t-h3" id="detail-title">
           {meta.name}
         </h2>

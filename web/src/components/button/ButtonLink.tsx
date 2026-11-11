@@ -27,11 +27,11 @@ export function ButtonLink({
     </span>
   );
   return external ? (
-    <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
+    <a href={href} className={cls} data-magnet="" target="_blank" rel="noopener noreferrer">
       {inner}
     </a>
   ) : (
-    <Link href={href} className={cls}>
+    <Link href={href} className={cls} data-magnet="">
       {inner}
     </Link>
   );

@@ -17,7 +17,7 @@ export function LiveReadout() {
   const st = useLauncherState();
   if (!isDeployed) {
     return (
-      <section className={styles.live} aria-label="Launch status">
+      <section className={styles.live} data-inspection aria-label="Launch status">
         <div className={styles.liveHead}>
           <span className="t-label">Launch status</span>
           <Badge tone="example">Not deployed</Badge>
@@ -37,7 +37,7 @@ export function LiveReadout() {
   }
   if (st.isError || cfg.isError) {
     return (
-      <section className={styles.live} aria-label="Launch status">
+      <section className={styles.live} data-inspection aria-label="Launch status">
         <span className="t-label">Launch status</span>
         <p className="t-small t-muted">The chain could not be read right now. Nothing is affected; try again in a moment.</p>
       </section>
@@ -45,7 +45,7 @@ export function LiveReadout() {
   }
   if (!st.data || !cfg.data) {
     return (
-      <section className={styles.live} aria-label="Launch status" aria-busy="true">
+      <section className={styles.live} data-inspection aria-label="Launch status" aria-busy="true">
         <Skeleton width="40%" />
         <Skeleton shape="block" className="" />
         <Skeleton width="70%" />
@@ -55,12 +55,12 @@ export function LiveReadout() {
   const s = st.data;
   const c = cfg.data;
   return (
-    <section className={styles.live} aria-label="Launch status">
+    <section className={styles.live} data-inspection aria-label="Launch status">
       <div className={styles.liveHead}>
         <span className="t-label">Launch status</span>
         <Badge tone={s.status === "Sale" ? "success" : s.status === "Refunding" ? "warning" : "neutral"}>{statusLabel(s.status)}</Badge>
       </div>
-      <Meter label="Sold" value={Number(s.sold)} max={Number(s.saleCap)} valueText={`${formatInt(s.sold)} of ${formatInt(s.saleCap)} tokens`} />
+      <Meter label="Sold" value={Number(s.sold)} max={Number(s.saleCap)} />
       <Readout
         rows={[
           { key: "Price per token", value: `${formatEther(c.mintPrice)} ETH` },

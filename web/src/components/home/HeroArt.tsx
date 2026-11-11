@@ -5,6 +5,7 @@ import { useLauncherState } from "@/lib/hooks/chain";
 import { isDeployed } from "@/lib/chain/deployment";
 import { asterismFor, asterismUri, EXAMPLE_SEED } from "@/lib/asterism/preview";
 import { MARK_NAMES, TIER_NAMES } from "@/lib/asterism/spec";
+import { ConstellationTrace } from "../asterism/ConstellationTrace";
 import { Badge } from "../badge/Badge";
 import styles from "./Home.module.css";
 
@@ -20,7 +21,7 @@ export function HeroArt() {
   const src = useMemo(() => asterismUri(seed, id), [seed, id]);
   return (
     <figure className={styles.heroArt}>
-      <div className={styles.heroFrame}>
+      <div className={styles.heroFrame} data-constellation tabIndex={0}>
         {/* eslint-disable-next-line @next/next/no-img-element -- on-chain SVG as data URI */}
         <img
           src={src}
@@ -29,6 +30,7 @@ export function HeroArt() {
           alt={`${revealed ? "" : "Example "}asterism ${id}: ${TIER_NAMES[a.tier]} tier, ${a.stars.length} stars, ${MARK_NAMES[a.tier].toLowerCase()} primary mark.`}
           fetchPriority="high"
         />
+        <ConstellationTrace geometry={a} />
       </div>
       <figcaption className={styles.heroCaption}>
         {revealed ? <Badge icon="reticle">Asterism #{id}</Badge> : <Badge tone="example">Example · seed not revealed</Badge>}

@@ -47,7 +47,7 @@ export default function Home() {
         <HeroArt />
       </section>
 
-      <section className={s.section} aria-labelledby="tiers-title">
+      <section className={s.section} data-reveal aria-labelledby="tiers-title">
         <div className={s.sectionHead}>
           <h2 className="t-h2" id="tiers-title">
             Five tiers, read from the stars
@@ -63,7 +63,7 @@ export default function Home() {
             const [lo, hi] = TIER_STARS[t]!;
             return (
               <div key={id} className={s.tier}>
-                <AsterismImage src={asterismUri(EXAMPLE_SEED, id)} alt={`Example ${TIER_NAMES[a.tier]} asterism with ${a.stars.length} stars.`} size={240} />
+                <AsterismImage geometry={a} src={asterismUri(EXAMPLE_SEED, id)} alt={`Example ${TIER_NAMES[a.tier]} asterism with ${a.stars.length} stars.`} size={240} />
                 <span className={s.tierName}>
                   {TIER_NAMES[t]}
                   <span className="t-mono t-muted">{TIER_COUNTS[t]!.toLocaleString("en-US")}</span>
@@ -81,7 +81,7 @@ export default function Home() {
         </p>
       </section>
 
-      <section className={s.section} aria-labelledby="how-title">
+      <section className={s.section} data-reveal aria-labelledby="how-title">
         <div className={s.sectionHead}>
           <h2 className="t-h2" id="how-title">
             How the launch works
@@ -116,7 +116,7 @@ export default function Home() {
         </ol>
       </section>
 
-      <section className={s.section} aria-labelledby="money-title">
+      <section className={s.section} data-reveal aria-labelledby="money-title">
         <div className={s.sectionHead}>
           <h2 className="t-h2" id="money-title">
             Where the money goes
@@ -135,14 +135,14 @@ export default function Home() {
             </span>
           </div>
           <div className={s.splitCols}>
-            <div className={s.panel}>
+            <div className={s.panel} data-inspection>
               <h3>Liquidity, locked by code</h3>
               <p>
                 The liquidity share buys the unsold supply at the sale price, so the pool opens at exactly what buyers paid. Rounding to
                 whole tokens goes to the treasury. The pool tokens are sent to a contract that has no functions.
               </p>
             </div>
-            <div className={s.panel}>
+            <div className={s.panel} data-inspection>
               <h3>Treasury, to a fixed address</h3>
               <p>
                 The rest can only be sent to the treasury address set at deployment, and anyone can trigger that payment. There are no
@@ -153,7 +153,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={s.section} aria-labelledby="verify-title">
+      <section className={s.section} data-reveal aria-labelledby="verify-title">
         <div className={s.sectionHead}>
           <h2 className="t-h2" id="verify-title">
             Check it yourself
@@ -181,7 +181,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={s.close} aria-labelledby="start-title">
+      <section className={s.close} data-reveal aria-labelledby="start-title">
         <h2 className="t-h3" id="start-title">
           Ready to read the launch?
         </h2>

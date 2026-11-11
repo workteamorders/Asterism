@@ -105,6 +105,7 @@
 }
 
 .card:hover .frame {
+  position: relative;
   outline-color: var(--text-muted);
 }
 
@@ -113,6 +114,7 @@
 }
 
 .frame {
+  position: relative;
   aspect-ratio: 1 / 1;
   background: var(--art-ground);
   outline: var(--border) solid var(--line);

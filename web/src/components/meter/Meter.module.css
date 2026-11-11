@@ -45,3 +45,25 @@
   width: var(--border);
   background: var(--line);
 }
+
+.value {
+  flex: 1 0 var(--instrument-counter-width);
+  text-align: end;
+}
+
+.track {
+  height: var(--space-16);
+}
+
+.fill {
+  inset: var(--instrument-tick-minor) 0;
+}
+
+.ticks span {
+  height: var(--instrument-tick-minor);
+  background: var(--line-strong);
+}
+
+.ticks span:nth-child(5n + 1) {
+  height: var(--instrument-tick-major);
+}

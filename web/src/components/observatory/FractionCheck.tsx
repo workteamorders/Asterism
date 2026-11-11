@@ -22,7 +22,7 @@ export function FractionCheck({ balance }: { balance: bigint }) {
   const burned = before - after;
   const fractional = valid && parsed! % unit !== 0n;
   return (
-    <section className={`${styles.panel} ${styles.fraction}`} aria-labelledby="fraction-title">
+    <section className={`${styles.panel} ${styles.fraction}`} data-inspection aria-labelledby="fraction-title">
       <h2 className="t-h4" id="fraction-title">
         Check a token transfer
       </h2>

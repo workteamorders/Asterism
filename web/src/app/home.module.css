@@ -245,3 +245,6 @@
   font-size: var(--fs-14);
   color: var(--text-muted);
 }
+
+.section:nth-of-type(even) { --reveal-order: 1; }
+.section:nth-of-type(odd) { --reveal-order: 2; }

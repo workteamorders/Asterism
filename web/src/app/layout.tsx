@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { InstrumentMotion } from "@/components/fieldscape/InstrumentMotion";
 import { Fieldscape } from "@/components/fieldscape/Fieldscape";
 import { Providers } from "@/components/providers/Providers";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -13,7 +14,7 @@ const archivo = localFont({
   src: "../fonts/archivo-latin-wdth-normal.woff2",
   variable: "--font-archivo",
   weight: "100 900",
-  display: "swap",
+  display: "optional",
   adjustFontFallback: "Arial",
   declarations: [{ prop: "font-stretch", value: "62% 125%" }],
 });
@@ -22,7 +23,7 @@ const martian = localFont({
   src: "../fonts/martian-mono-latin-wght-normal.woff2",
   variable: "--font-martian",
   weight: "100 800",
-  display: "swap",
+  display: "optional",
   adjustFontFallback: false,
   preload: false,
 });
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${archivo.variable} ${martian.variable}`}>
       <body>
         <Fieldscape />
+        <InstrumentMotion />
         <a className="skip-link" href="#main">
           Skip to main content
         </a>

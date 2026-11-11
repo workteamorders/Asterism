@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { MARK_NAMES, MAX_SUPPLY_TOKENS, TIER_NAMES, type Tier } from "@/lib/asterism/spec";
-import { asterismUri, UNREVEALED_URI } from "@/lib/asterism/preview";
+import { asterismFor, asterismUri, UNREVEALED_URI } from "@/lib/asterism/preview";
 import { explain } from "@/lib/chain/errors";
 import { Badge } from "../badge/Badge";
 import { Button } from "../button/Button";
@@ -13,6 +13,7 @@ import { Skeleton } from "../skeleton/Skeleton";
 import { EmptyState, ErrorState } from "../state/States";
 import { Notice } from "../notice/Notice";
 import { DetailView } from "./DetailView";
+import { ConstellationTrace } from "../asterism/ConstellationTrace";
 import styles from "./Gallery.module.css";
 import { useCollection, type Item } from "./useCollection";
 
@@ -180,14 +181,16 @@ function Grid() {
 }
 
 function Card({ item, seedMode, seed }: { item: Item; seedMode: "example" | "unrevealed" | "revealed"; seed: `0x${string}` | null }) {
+  const geometry = seedMode !== "unrevealed" && seed ? asterismFor(seed, item.id) : null;
   const src = seedMode !== "unrevealed" && seed ? asterismUri(seed, item.id, item.name) : UNREVEALED_URI;
   const label =
     item.tier !== null ? `${seedMode === "example" ? "Example " : ""}asterism ${item.id}, ${TIER_NAMES[item.tier]}, ${item.stars} stars${item.name ? `, named ${item.name}` : ""}` : `Asterism ${item.id}, not yet revealed`;
   return (
-    <Link href={`/gallery/?id=${item.id}`} className={styles.card} aria-label={label}>
+    <Link href={`/gallery/?id=${item.id}`} className={styles.card} data-inspection data-constellation aria-label={label}>
       <span className={styles.frame}>
         {/* eslint-disable-next-line @next/next/no-img-element -- data URI SVG */}
         <img src={src} alt="" width={240} height={240} loading="lazy" decoding="async" />
+        {geometry ? <ConstellationTrace geometry={geometry} /> : null}
       </span>
       <span className={styles.cardMeta}>
         <span className="t-mono">#{item.id}</span>

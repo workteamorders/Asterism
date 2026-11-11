@@ -7,7 +7,7 @@ import { simulateWrite } from "@/lib/chain/tx";
 import { deployment, EXAMPLE_PARAMS, isDeployed } from "@/lib/chain/deployment";
 import type { LauncherConfig, LauncherState, UserState } from "@/lib/chain/reads";
 import { explain } from "@/lib/chain/errors";
-import { formatEth, formatInt, formatUtc, percent, relativeTime } from "@/lib/format";
+import { formatEth, formatInt, formatUtc, relativeTime } from "@/lib/format";
 import { useLauncherConfig, useLauncherState, useUserState } from "@/lib/hooks/chain";
 import { statusLabel } from "@/lib/status";
 import { Address as AddressView } from "../address/Address";
@@ -43,7 +43,7 @@ function NotDeployed() {
         Nothing can be bought, and no address on this page is live. When the owner deploys, the parameters will be published here
         before the sale opens, and this page will read every figure from the chain.
       </EmptyState>
-      <section className={styles.panel} aria-labelledby="proposed-title">
+      <section className={styles.panel} data-inspection aria-labelledby="proposed-title">
         <div className={styles.panelHead}>
           <h2 className={styles.panelTitle} id="proposed-title">
             Proposed parameters
@@ -94,13 +94,13 @@ function Deployed() {
 function LaunchSkeleton() {
   return (
     <div className={styles.grid} aria-busy="true" aria-label="Reading the launch from the chain">
-      <div className={styles.panel}>
+      <div className={styles.panel} data-inspection>
         <Skeleton width="30%" />
         <Skeleton shape="block" />
         <Skeleton width="80%" />
         <Skeleton width="60%" />
       </div>
-      <div className={styles.panel}>
+      <div className={styles.panel} data-inspection>
         <Skeleton width="40%" />
         <Skeleton width="100%" />
         <Skeleton width="50%" />
@@ -115,14 +115,14 @@ function Live({ cfg, state, user }: { cfg: LauncherConfig; state: LauncherState;
   return (
     <>
       <div className={styles.grid}>
-        <section className={styles.panel} aria-labelledby="status-title">
+        <section className={styles.panel} data-inspection aria-labelledby="status-title">
           <div className={styles.panelHead}>
             <h2 className={styles.panelTitle} id="status-title">
               Status
             </h2>
             <Badge tone={state.status === "Sale" ? "success" : state.status === "Refunding" ? "warning" : "neutral"}>{statusLabel(state.status)}</Badge>
           </div>
-          <Meter label="Sold" value={Number(state.sold)} max={Number(state.saleCap)} valueText={`${formatInt(state.sold)} of ${formatInt(state.saleCap)} tokens (${percent(state.sold, state.saleCap)})`} />
+          <Meter label="Sold" value={Number(state.sold)} max={Number(state.saleCap)} showPercent />
           <Readout
             rows={[
               { key: "Price per token", value: `${formatEther(cfg.mintPrice)} ETH` },
@@ -309,7 +309,7 @@ function ActionPanel({ cfg, state, user, now }: { cfg: LauncherConfig; state: La
   }
 
   return (
-    <section className={styles.panel} aria-labelledby="action-title">
+    <section className={styles.panel} data-inspection aria-labelledby="action-title">
       <h2 className={styles.panelTitle} id="action-title">
         {title}
       </h2>
@@ -334,7 +334,7 @@ function MoneyPanel({ cfg, state }: { cfg: LauncherConfig; state: LauncherState 
       <h2 className="t-h3" id="money-title">
         Where the money goes {state.finalized ? "" : "(if finalized now)"}
       </h2>
-      <div className={styles.panel}>
+      <div className={styles.panel} data-inspection>
         <Readout
           rows={[
             { key: "Raised", value: `${formatEth(state.raised)} ETH` },
@@ -358,7 +358,7 @@ function Position({ cfg, user }: { cfg: LauncherConfig; user: UserState }) {
       <h2 className="t-h3" id="position-title">
         Your position
       </h2>
-      <div className={styles.panel}>
+      <div className={styles.panel} data-inspection>
         <Readout
           rows={[
             { key: "Bought in the sale", value: `${formatInt(user.purchased)} of ${cfg.walletCap} tokens` },

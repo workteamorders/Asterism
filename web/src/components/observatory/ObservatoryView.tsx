@@ -112,7 +112,7 @@ function Owned({ address }: { address: Address }) {
 function Panel({ id, address, revealed, seed }: { id: number; address: Address; revealed: boolean; seed: `0x${string}` }) {
   const { geo } = useGates();
   return (
-    <section className={styles.panel} aria-labelledby="panel-title">
+    <section className={styles.panel} data-inspection aria-labelledby="panel-title">
       <h2 className="t-h4" id="panel-title">
         Asterism #{id}
       </h2>
