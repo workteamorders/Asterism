@@ -199,8 +199,7 @@ export default function StyleguidePage() {
 
       <section id="motion" className={s.section} aria-labelledby="motion-title">
         <SectionHead index="05" id="motion" title="Motion">
-          Stepped and firm, like a focus motor. Only transform and opacity move. With reduced motion, every duration
-          drops to zero and nothing breaks.
+          Hover or focus to compare the control timings. Reduced motion keeps the field and artwork still and updates the meter immediately.
         </SectionHead>
         <div className={s.motionDemo} tabIndex={0} aria-label="Motion demo. Hover or focus to run.">
           {MOTION.map((m) => (
@@ -272,7 +271,7 @@ export default function StyleguidePage() {
           <h3 className={s.subTitle}>Five tiers, at their maximum star count</h3>
           <div className={s.artGrid}>
             {byTier.map((r) => (
-              <AsterismImage key={r.a.id} src={r.src} alt={r.alt} caption={<ArtCaption r={r} />} />
+              <AsterismImage key={r.a.id} geometry={r.a} src={r.src} alt={r.alt} caption={<ArtCaption r={r} />} />
             ))}
           </div>
         </div>
@@ -281,7 +280,7 @@ export default function StyleguidePage() {
           <h3 className={s.subTitle}>Three guide styles, picked from the seed</h3>
           <div className={s.artGrid3}>
             {byGuide.map((r) => (
-              <AsterismImage key={r.a.id} src={r.src} alt={r.alt} caption={<ArtCaption r={r} />} />
+              <AsterismImage key={r.a.id} geometry={r.a} src={r.src} alt={r.alt} caption={<ArtCaption r={r} />} />
             ))}
           </div>
         </div>
@@ -300,6 +299,7 @@ export default function StyleguidePage() {
               }
             />
             <AsterismImage
+              geometry={named.a}
               src={named.src}
               alt={named.alt}
               caption={
@@ -310,6 +310,7 @@ export default function StyleguidePage() {
               }
             />
             <AsterismImage
+              geometry={unnamedSame.a}
               src={unnamedSame.src}
               alt={unnamedSame.alt}
               caption={
@@ -331,14 +332,14 @@ export default function StyleguidePage() {
           <div className={s.thumbs}>
             {byTier.map((r) => (
               <div key={`g${r.a.id}`} className={s.thumb120}>
-                <AsterismImage src={r.src} alt={`${r.alt} Grayscale.`} grayscale size={120} caption={TIER_NAMES[r.a.tier]} />
+                <AsterismImage geometry={r.a} src={r.src} alt={`${r.alt} Grayscale.`} grayscale size={120} caption={TIER_NAMES[r.a.tier]} />
               </div>
             ))}
           </div>
           <div className={s.thumbs}>
             {byTier.map((r) => (
               <div key={`t${r.a.id}`} className={s.thumb64}>
-                <AsterismImage src={r.src} alt={`${r.alt} Thumbnail.`} size={64} />
+                <AsterismImage geometry={r.a} src={r.src} alt={`${r.alt} Thumbnail.`} size={64} />
               </div>
             ))}
           </div>
@@ -520,7 +521,7 @@ export default function StyleguidePage() {
         </div>
       </section>
 
-      <section id="components" className={s.section} aria-labelledby="components-title">
+      <section id="components" className={s.section} data-reveal aria-labelledby="components-title">
         <SectionHead index="10" id="components" title="Components and states">
           Interactive pieces, empty and error states, and every phase of a transaction.
         </SectionHead>

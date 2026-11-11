@@ -110,6 +110,7 @@ function TxPhases() {
 
 export function Components() {
   const toast = useToast();
+  const [sampleSold, setSampleSold] = useState(642);
   const [open, setOpen] = useState<"plain" | "locked" | "danger" | null>(null);
   return (
     <>
@@ -225,13 +226,13 @@ export function Components() {
         <h3 className={s.subTitle}>Meter, tooltip, tabs, address, readout</h3>
         <div className={s.pair}>
           <div className={s.stackBlock}>
-            <Meter label="Sold" value={642} max={1333} valueText="642 of 1,333 tokens (48.2%)" />
-            <Meter label="Sold" value={0} max={1333} valueText="0 of 1,333 tokens (0%)" />
-            <Meter label="Sold" value={1333} max={1333} valueText="1,333 of 1,333 tokens (100%)" />
+            <Meter label="Example sale" value={sampleSold} max={1333} showPercent />
+            <Button onClick={() => setSampleSold((value) => value === 642 ? 916 : 642)}>Change example count</Button>
+            <Meter label="Sold" value={0} max={1333} showPercent />
+            <Meter label="Sold" value={1333} max={1333} showPercent />
             <div className={s.row}>
-              <Tooltip label="Tier is read from the star count and the primary mark.">
-                <Badge tone="neutral">Tier</Badge>
-              </Tooltip>
+              <Badge tone="neutral">Tier</Badge>
+              <Tooltip label="About tiers">Tier is read from the star count and the primary mark.</Tooltip>
               <Badge tone="example">Example</Badge>
             </div>
             <Address value={ADDRESS_EXAMPLE} />
