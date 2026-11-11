@@ -136,6 +136,51 @@
   --ease-step: steps(3, jump-end);
   --press-scale: 0.97;
 
+  /* Measurement field. Opaque marks are capped by the brightest opaque ink. */
+  --field-ground: #060708;
+  --field-grid: #0d0e0f;
+  --field-edge: #111212;
+  --field-star: #131310;
+  --field-ring: #131310;
+  --field-grid-pitch: 48;
+  --field-cross: 3;
+  --field-hairline: 1;
+  --field-point: 1.2;
+  --field-radius: 126;
+  --field-pull: 0.14;
+  --field-drift: 12;
+  --field-drift-period: 18000;
+  --field-ease-period: 82;
+  --field-ring-period: 980;
+  --field-ring-limit: 180;
+  --field-tap-gap: 360;
+  --field-dpr-limit: 2;
+  --field-compact-width: 640;
+  --field-compact-cores: 4;
+  --field-full-patches: 6;
+  --field-compact-patches: 3;
+
+  /* Instrument controls. */
+  --instrument-corner: var(--space-8);
+  --instrument-profile: polygon(0 0, calc(100% - var(--instrument-corner)) 0, 100% var(--instrument-corner), 100% 100%, var(--instrument-corner) 100%, 0 calc(100% - var(--instrument-corner)));
+  --instrument-rail: calc(3 * var(--border));
+  --instrument-reticle: var(--space-24);
+  --instrument-tilt: 2deg;
+  --instrument-magnet: var(--space-4);
+  --instrument-reveal-distance: var(--space-12);
+  --instrument-reveal-step: 55ms;
+  --instrument-scan: 1800ms;
+  --instrument-trace: 520ms;
+  --instrument-star-step: 32ms;
+  --instrument-star-scale: 2;
+  --instrument-scan-fraction: 0.2;
+  --instrument-press: var(--border);
+  --instrument-counter-width: 26ch;
+  --instrument-tick-minor: var(--space-4);
+  --instrument-tick-major: var(--space-8);
+  --instrument-spinner: 800ms;
+  --instrument-reveal-opacity: 0.35;
+
   /* Layers. */
   --z-header: 10;
   --z-overlay: 40;
