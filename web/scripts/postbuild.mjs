@@ -1,10 +1,11 @@
-// Writes out/_headers for Cloudflare Pages: security headers for every path, plus a strict per-page
+// Writes out/_headers for Cloudflare Pages (and, when building on Vercel, the same policy as a meta tag in each page): security headers for every path, plus a strict per-page
 // Content-Security-Policy that allows only this page's own inline scripts by hash (no 'unsafe-inline' scripts).
 import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { mergeFlightScripts } from "./flight-merge.mjs";
+import { injectCspMeta } from "./csp-meta.mjs";
 
 const OUT = fileURLToPath(new URL("../out/", import.meta.url));
 const EXPLORERS = ["https://robinhoodchain.blockscout.com", "https://explorer.testnet.chain.robinhood.com"];
@@ -67,6 +68,13 @@ for (const p of pages) {
   const value = csp(hashes(readFileSync(p, "utf8")));
   longest = Math.max(longest, value.length);
   for (const r of new Set([route, `/${rel}`])) lines.push(r, "  ! Content-Security-Policy", `  Content-Security-Policy: ${value}`, "");
+}
+if (process.env.VERCEL === "1" || process.env.CSP_META === "1") {
+  for (const p of pages) {
+    const html = readFileSync(p, "utf8");
+    writeFileSync(p, injectCspMeta(html, csp(hashes(html))));
+  }
+  console.log(`CSP meta tag written into ${pages.length} pages`);
 }
 if (longest > 2000) {
   const msg = `a CSP header is ${longest} characters; Cloudflare's limit is 2000`;

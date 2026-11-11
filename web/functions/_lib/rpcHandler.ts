@@ -60,8 +60,9 @@ function sanitize(v: unknown): unknown {
   return { jsonrpc: "2.0", id: r.id ?? null, error: { code: typeof r.error.code === "number" ? r.error.code : -32000, message: data ? "execution reverted" : "The RPC provider rejected the request.", ...(data ? { data } : {}) } };
 }
 
-export async function handleRpc(req: Request, env: RpcEnv, fetchImpl: typeof fetch = fetch): Promise<Response> {
-  const origins = parseOrigins(env.ALLOWED_ORIGINS, req.url);
+/** `siteUrl` is the URL the visitor reached this site at; hosts whose request.url is not that pass it explicitly. */
+export async function handleRpc(req: Request, env: RpcEnv, fetchImpl: typeof fetch = fetch, siteUrl: string = req.url): Promise<Response> {
+  const origins = parseOrigins(env.ALLOWED_ORIGINS, siteUrl);
   const origin = req.headers.get("origin");
   const cors: Record<string, string> = origin && origins.has(origin) ? { "access-control-allow-origin": origin, vary: "origin" } : {};
   if (req.method === "OPTIONS") {

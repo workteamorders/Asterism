@@ -4,7 +4,7 @@ A hybrid token/NFT collection (DN404, 2,222 maximum) on Robinhood Chain whose ar
 
 ```
 contracts/     Foundry project: renderer, token, launcher, tests, deploy scripts
-web/           Next.js static site + Cloudflare Pages Functions (/api/rpc, /api/geo)
+web/           Next.js static site + server functions for /api/rpc and /api/geo (Cloudflare Pages Functions in functions/, Vercel Functions in api/, sharing functions/_lib)
 deployments/   Per-chain addresses (4663.json, 46630.json) and deploy config examples
 scripts/       Owner scripts: gen-commit.mjs, deploy.sh
 .github/       CI (free tier): contracts, lint, types, tests, build, copy and secrets checks

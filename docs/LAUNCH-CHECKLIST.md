@@ -78,7 +78,9 @@ Selesai bila: halaman Contracts di situs staging menampilkan "Code matches this 
 
 Selesai bila: `verify-deployment` lulus 100% dan sumber terverifikasi di explorer.
 
-## 7. Situs produksi (Cloudflare Pages)
+## 7. Situs produksi (Cloudflare Pages atau Vercel)
+
+Situs mendukung dua host. Langkah 2 sampai 5 sama untuk keduanya; langkah 1, 4, dan 6 berbeda. Bagian 7b khusus Vercel.
 
 1. Buat proyek Pages dari folder `web`, perintah build `pnpm build`, direktori keluaran `out`, Node 22.
 2. Variabel build: `NEXT_PUBLIC_CHAIN_ID=4663`, `NEXT_PUBLIC_SITE_URL=<domain resmi>`, `NEXT_PUBLIC_AUDIT_REPORT_URL=<bila ada>`.
@@ -86,6 +88,15 @@ Selesai bila: `verify-deployment` lulus 100% dan sumber terverifikasi di explore
 4. Opsional: binding Workers Rate Limiting bernama `RPC_LIMITER` untuk `/api/rpc` (tingkat gratis tersedia; tanpa binding, proxy tetap jalan tanpa pembatas).
 5. Sebelum mengumumkan: `pnpm verify:deployment`, `pnpm copy:check`, `pnpm secrets:check`, dan buka tiap halaman di produksi. Halaman Contracts harus menampilkan "Code matches this build" lima kali.
 6. Header keamanan dan CSP ditulis oleh `postbuild` ke `out/_headers`; periksa bahwa respons produksi memuat `Content-Security-Policy` per halaman.
+
+### 7b. Vercel
+
+1. Impor repositori di Vercel. Pengaturan proyek: **Root Directory** `web`. Berkas `web/vercel.json` sudah menetapkan framework `null`, perintah install/build, direktori keluaran `out`, `trailingSlash`, dan header keamanan statis; jangan menimpanya di dasbor.
+2. Variabel lingkungan (Settings > Environment Variables). Build: `NEXT_PUBLIC_CHAIN_ID`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_AUDIT_REPORT_URL`. Runtime server: `RPC_UPSTREAM_URL`, `PROJECT_ADDRESSES`, `BLOCKED_COUNTRIES`, opsional `ALLOWED_ORIGINS` dan `MAX_LOG_RANGE`. Tandai `RPC_UPSTREAM_URL` sebagai sensitif. Ubah variabel lalu **deploy ulang**; variabel baru tidak berlaku pada deployment lama.
+3. `/api/rpc` dan `/api/geo` adalah Vercel Functions (`web/api/*.ts`) yang memakai kode kebijakan yang sama dengan versi Cloudflare. Negara dibaca dari header `x-vercel-ip-country` yang diisi Vercel; header `cf-ipcountry` diabaikan di sana.
+4. Pembatas laju: binding `RPC_LIMITER` hanya ada di Cloudflare. Di Vercel tidak ada pembatas di dalam kode; bila paket Anda menyediakan aturan pembatas laju di Firewall, buat aturan untuk path `/api/rpc` dan periksa ketersediaannya di dasbor. Tanpa itu, batas efektif hanya anggaran penyedia RPC.
+5. CSP: Vercel membaca `vercel.json` sebelum build dan mengabaikan `_headers`, jadi saat build di Vercel `postbuild` menulis kebijakan yang sama sebagai tag `<meta http-equiv="Content-Security-Policy">` di tiap halaman (hash skrip per halaman). Perbedaannya dengan Cloudflare: meta tidak bisa memuat `frame-ancestors`, jadi pembingkaian dicegah oleh `X-Frame-Options: DENY` dari `vercel.json`; dan kebijakan hanya berlaku untuk konten setelah tag itu. Periksa di produksi bahwa konsol tidak menampilkan pelanggaran CSP dan bahwa halaman `/api/geo` mengembalikan JSON.
+6. Setelah deploy: `curl -s https://<domain>/api/geo` harus mengembalikan `{"country":"..","viewOnly":false}`; ujilah juga dari negara yang Anda daftarkan di `BLOCKED_COUNTRIES` (mis. lewat VPN) sebelum mengandalkannya.
 
 ## 8. Geoblock
 

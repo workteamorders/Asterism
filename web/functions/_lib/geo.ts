@@ -10,6 +10,12 @@ export interface GeoEnv {
 export function handleGeo(req: Request & { cf?: { country?: string } }, env: GeoEnv): Response {
   const fromCf = req.cf?.country;
   const country = (fromCf ?? req.headers.get("cf-ipcountry") ?? "").toUpperCase() || null;
+  return geoResponse(country, env, "cf-ipcountry");
+}
+
+/** Shared by every host. `country` must already come from a header or field the platform itself sets. */
+export function geoResponse(country: string | null, env: GeoEnv, varyHeader: string): Response {
+  if (country !== null && !/^[A-Z]{2}$/.test(country)) country = null;
   const blocked = new Set(
     (env.BLOCKED_COUNTRIES ?? "")
       .split(",")
@@ -18,6 +24,6 @@ export function handleGeo(req: Request & { cf?: { country?: string } }, env: Geo
   );
   const viewOnly = country !== null && blocked.has(country);
   return new Response(JSON.stringify({ country, viewOnly }), {
-    headers: { "content-type": "application/json", "cache-control": "private, no-store", vary: "cf-ipcountry" },
+    headers: { "content-type": "application/json", "cache-control": "private, no-store", vary: varyHeader },
   });
 }
