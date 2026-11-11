@@ -16,9 +16,9 @@ export function Tabs({ items, label, initial }: { items: TabItem[]; label: strin
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const onKey = (e: KeyboardEvent<HTMLButtonElement>, i: number) => {
     const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
-    if (!dir) return;
+    if (!dir && e.key !== "Home" && e.key !== "End") return;
     e.preventDefault();
-    const next = (i + dir + items.length) % items.length;
+    const next = e.key === "Home" ? 0 : e.key === "End" ? items.length - 1 : (i + dir + items.length) % items.length;
     setActive(items[next]!.id);
     refs.current[next]?.focus();
   };

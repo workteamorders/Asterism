@@ -1,8 +1,20 @@
 .block {
   display: block;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-sunken);
+  border: var(--border) solid var(--line);
+  clip-path: var(--instrument-profile);
+}
+
+.block::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(100% * var(--instrument-scan-fraction));
   background: var(--surface-raised);
-  border-radius: var(--radius);
-  animation: pull 1.2s var(--ease-step) infinite alternate;
+  border-inline-end: var(--border) solid var(--line-strong);
+  animation: scan var(--instrument-scan) var(--ease-out) infinite;
 }
 
 .line {
@@ -14,22 +26,15 @@
 }
 
 .tall {
-  min-height: 12rem;
+  min-height: calc(2 * var(--space-96));
 }
 
-/* Focus pull: three firm steps between soft and sharp, like a focus motor. */
-@keyframes pull {
-  from {
-    opacity: 0.45;
-  }
-  to {
-    opacity: 1;
-  }
+@keyframes scan {
+  from { transform: translateX(-100%); opacity: 0; }
+  25%, 75% { opacity: 1; }
+  to { transform: translateX(calc(100% / var(--instrument-scan-fraction))); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .block {
-    animation: none;
-    opacity: 0.7;
-  }
+  .block::before { animation: none; }
 }

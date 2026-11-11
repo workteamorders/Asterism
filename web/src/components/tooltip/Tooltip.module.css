@@ -11,9 +11,10 @@
   width: max-content;
   max-width: 16rem;
   padding: var(--space-8) var(--space-12);
+  border-block-start: var(--instrument-rail) solid var(--line-strong);
   background: var(--surface-floating);
   box-shadow: var(--elev-floating-ring);
-  border-radius: var(--radius);
+  border-radius: 0;
   font-size: var(--fs-14);
   line-height: 1.4;
   color: var(--text);
@@ -25,9 +26,10 @@
     transform var(--dur-micro) var(--ease-out);
 }
 
-.wrap:hover .tip,
-.wrap:focus-within .tip {
+.wrap:not([data-dismissed]):hover .tip,
+.wrap:not([data-dismissed]):focus-within .tip {
   opacity: 1;
+  pointer-events: auto;
   transform: translate(-50%, 0);
 }
 
@@ -41,9 +43,17 @@
   background: transparent;
   border: 0;
   color: var(--text-muted);
-  border-radius: var(--radius);
+  border-radius: 0;
 }
 
 .trigger:hover {
   color: var(--text);
+}
+
+
+.tip::after {
+  content: "";
+  position: absolute;
+  inset: 100% 0 auto;
+  height: var(--space-8);
 }

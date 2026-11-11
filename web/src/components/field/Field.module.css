@@ -34,7 +34,8 @@
   padding: 0 var(--space-12);
   background: var(--surface-sunken);
   border: var(--border) solid var(--line-strong);
-  border-radius: var(--radius);
+  border-radius: 0;
+  border-inline-start-width: var(--instrument-rail);
   transition: border-color var(--dur-micro) var(--ease-out);
 }
 
@@ -95,7 +96,7 @@
 
 .error svg {
   flex: none;
-  margin-top: 1px;
+  margin-top: var(--border);
 }
 
 .invalid .control {

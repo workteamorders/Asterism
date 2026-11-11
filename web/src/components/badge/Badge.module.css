@@ -5,7 +5,8 @@
   min-height: var(--space-24);
   padding: 0 var(--space-8);
   border: var(--border) solid var(--line-strong);
-  border-radius: var(--radius);
+  clip-path: var(--instrument-profile);
+  border-inline-width: var(--instrument-rail);
   background: var(--surface-raised);
   color: var(--text);
   font-size: var(--fs-12);

@@ -10,7 +10,9 @@
   min-height: var(--tap);
   padding: 0 var(--space-16);
   background: transparent;
-  border: 0;
+  border: var(--border) solid var(--line);
+  border-bottom: 0;
+  font-family: var(--font-mono);
   color: var(--text-muted);
   font-weight: var(--wght-semibold);
   font-size: var(--fs-14);
@@ -19,10 +21,12 @@
 
 .tab:hover {
   color: var(--text);
+  background: var(--surface-raised);
 }
 
 .tab[aria-selected="true"] {
   color: var(--text);
+  background: var(--surface-raised);
 }
 
 .tab[aria-selected="true"]::after {
@@ -30,11 +34,19 @@
   position: absolute;
   left: var(--space-8);
   right: var(--space-8);
-  bottom: calc(-1 * var(--border));
-  height: 2px;
-  background: var(--accent);
+  bottom: 0;
+  height: var(--focus-width);
+  background: var(--starlight);
 }
 
 .panel {
   padding-top: var(--space-24);
+}
+
+.tab:focus-visible {
+  outline-offset: calc(-1 * var(--focus-width));
+}
+
+.tab:active {
+  background: var(--surface-pressed);
 }

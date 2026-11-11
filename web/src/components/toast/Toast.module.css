@@ -17,13 +17,13 @@
   padding: var(--space-12) var(--space-12) var(--space-12) var(--space-16);
   background: var(--surface-floating);
   box-shadow: var(--elev-floating-ring);
-  border-radius: var(--radius);
+  border-inline-start: var(--instrument-rail) solid var(--line-strong);
   pointer-events: auto;
   animation: in var(--dur-element) var(--ease-out);
 }
 
 .icon {
-  padding-top: 2px;
+  padding-top: var(--focus-width);
 }
 
 .success .icon {
@@ -73,3 +73,8 @@
     transform: translateY(var(--space-8));
   }
 }
+
+.success { border-inline-start-color: var(--success); }
+.danger { border-inline-start-color: var(--danger); }
+.info { border-inline-start-color: var(--info); }
+.warning { border-inline-start-color: var(--warning); }
