@@ -50,6 +50,14 @@
   container-type: size;
 }
 
+.field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 .grid,
 .reticle {
   position: absolute;
@@ -80,6 +88,52 @@
   width: var(--map-reticle-width);
   transform: translate(-50%, -50%);
   stroke-dasharray: var(--space-4) var(--space-8);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reticle {
+    animation: sky-spin var(--sky-spin-period) linear infinite;
+  }
+
+  .target {
+    animation: sky-drift calc(var(--sky-drift-period) + var(--sky-order) * var(--sky-drift-step)) ease-in-out infinite alternate;
+    animation-delay: calc(var(--sky-order) * var(--sky-drift-offset));
+  }
+
+  .geometry circle:not(.primary) {
+    animation: sky-twinkle var(--sky-twinkle-period) ease-in-out infinite;
+    animation-delay: calc(var(--n) * var(--sky-twinkle-step));
+  }
+
+  .target {
+    transition: opacity var(--dur-panel) var(--ease-out);
+  }
+
+  /* While one asterism is being inspected, the others step back. */
+  .sky:has(.target:is(:hover, :focus-visible)) .target:not(:is(:hover, :focus-visible, [aria-expanded="true"])) {
+    opacity: var(--sky-dim);
+  }
+}
+
+@keyframes sky-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes sky-drift {
+  from {
+    translate: calc(var(--sky-drift) * -1) calc(var(--sky-drift) * 0.6);
+  }
+  to {
+    translate: var(--sky-drift) calc(var(--sky-drift) * -0.8);
+  }
+}
+
+@keyframes sky-twinkle {
+  50% {
+    opacity: var(--sky-twinkle-low);
+  }
 }
 
 .target {

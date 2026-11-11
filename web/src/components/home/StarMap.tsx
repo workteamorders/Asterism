@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import type { Asterism } from "@/lib/asterism/geometry";
 import { asterismFor, EXAMPLE_SEED } from "@/lib/asterism/preview";
 import { BRIGHTNESS_RADIUS, CANVAS, TIER_NAMES } from "@/lib/asterism/spec";
@@ -12,6 +12,7 @@ import { Button } from "../button/Button";
 import { ButtonLink } from "../button/ButtonLink";
 import { Icon } from "../icon/Icon";
 import { LiveReadout } from "./LiveReadout";
+import { GRID_PITCH } from "./grid";
 import styles from "./StarMap.module.css";
 
 const PREVIEW_IDS = [23, 1, 142, 38, 97];
@@ -58,11 +59,35 @@ function Map({ entries, previewReason }: { entries: MapEntry[]; previewReason?: 
   const [id, setId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
   const trigger = useRef<HTMLElement | null>(null);
+  const sky = useRef<HTMLDivElement>(null);
+  const field = useRef<HTMLCanvasElement>(null);
   const drawer = useId();
   const pattern = useId();
   const preview = Boolean(previewReason);
   const index = entries.findIndex((entry) => entry.geometry.id === id);
   const selected = open ? entries[index] : undefined;
+  const entryKey = entries.map((entry) => entry.geometry.id).join(",");
+
+  useEffect(() => {
+    const element = sky.current;
+    const canvas = field.current;
+    if (!element || !canvas || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // The motion is loaded and started when the browser is idle, so it never competes with first paint.
+    let cleanup: (() => void) | undefined;
+    let disposed = false;
+    const start = () => {
+      void import("./sky").then(({ mountSky }) => {
+        if (!disposed) cleanup = mountSky(element, canvas);
+      });
+    };
+    const idle = typeof window.requestIdleCallback === "function" ? window.requestIdleCallback(start, { timeout: 2000 }) : window.setTimeout(start, 200);
+    return () => {
+      disposed = true;
+      if (typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
+      cleanup?.();
+    };
+  }, [entryKey]);
 
   function select(entry: MapEntry, element: HTMLElement) {
     trigger.current = element;
@@ -99,12 +124,12 @@ function Map({ entries, previewReason }: { entries: MapEntry[]; previewReason?: 
       </header>
 
       <div className={styles.viewport}>
-        <div className={styles.sky} aria-label="Star map" role="group">
+        <div ref={sky} className={styles.sky} aria-label="Star map" role="group">
           <svg className={styles.grid} aria-hidden="true" width="100%" height="100%">
             <defs>
-              <pattern id={pattern} width={32} height={32} patternUnits="userSpaceOnUse">
-                <path d="M0 0H32V32" />
-                <path d="M12 16H20M16 12V20" />
+              <pattern id={pattern} width={GRID_PITCH} height={GRID_PITCH} patternUnits="userSpaceOnUse">
+                <path d={`M0 0H${GRID_PITCH}V${GRID_PITCH}`} />
+                <path d={`M${GRID_PITCH / 2 - 4} ${GRID_PITCH / 2}H${GRID_PITCH / 2 + 4}M${GRID_PITCH / 2} ${GRID_PITCH / 2 - 4}V${GRID_PITCH / 2 + 4}`} />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill={`url(#${pattern})`} />
@@ -116,6 +141,8 @@ function Map({ entries, previewReason }: { entries: MapEntry[]; previewReason?: 
             <path d="M0 200H400M200 0V400" />
           </svg>
 
+          <canvas ref={field} className={styles.field} aria-hidden="true" />
+
           {entries.map((entry, i) => {
             const { geometry } = entry;
             const [x, y] = POSITIONS[i]!;
@@ -125,20 +152,20 @@ function Map({ entries, previewReason }: { entries: MapEntry[]; previewReason?: 
                 key={geometry.id}
                 type="button"
                 className={styles.target}
-                style={{ "--map-x": x, "--map-y": y } as CSSProperties}
+                style={{ "--map-x": x, "--map-y": y, "--sky-order": i } as CSSProperties}
                 aria-label={labelFor(entry, preview)}
                 aria-expanded={active}
                 aria-controls={drawer}
                 onClick={(event) => select(entry, event.currentTarget)}
               >
-                <svg viewBox={`0 0 ${CANVAS} ${CANVAS}`} className={styles.geometry} aria-hidden="true">
+                <svg viewBox={`0 0 ${CANVAS} ${CANVAS}`} className={styles.geometry} aria-hidden="true" data-sky-svg="">
                   {geometry.edges.map(([from, to]) => (
-                    <line key={to} x1={geometry.stars[from]!.x} y1={geometry.stars[from]!.y} x2={geometry.stars[to]!.x} y2={geometry.stars[to]!.y} />
+                    <line key={to} data-a={from} data-b={to} x1={geometry.stars[from]!.x} y1={geometry.stars[from]!.y} x2={geometry.stars[to]!.x} y2={geometry.stars[to]!.y} />
                   ))}
                   {geometry.stars.map((star, n) => (
-                    <circle key={n} cx={star.x} cy={star.y} r={BRIGHTNESS_RADIUS[star.b]} />
+                    <circle key={n} data-s={n} cx={star.x} cy={star.y} r={BRIGHTNESS_RADIUS[star.b]} style={{ "--n": n } as CSSProperties} />
                   ))}
-                  <circle className={styles.primary} cx={geometry.stars[geometry.primary]!.x} cy={geometry.stars[geometry.primary]!.y} r={12} />
+                  <circle className={styles.primary} data-s={geometry.primary} cx={geometry.stars[geometry.primary]!.x} cy={geometry.stars[geometry.primary]!.y} r={12} />
                 </svg>
                 <span className={styles.targetLabel}>{entry.name || `#${String(geometry.id).padStart(4, "0")}`}</span>
               </button>

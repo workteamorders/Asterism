@@ -207,6 +207,33 @@
   --map-drawer-max: 36rem;
   --map-reticle-width: min(76%, 34rem);
 
+  /* Observatory sky: drift and twinkle (CSS), pointer pull, click waves and the idle ghost pointer (components/home/sky.ts). */
+  --sky-drift: var(--space-12);
+  --sky-drift-period: 16s;
+  --sky-drift-step: 3s;
+  --sky-drift-offset: -4s;
+  --sky-spin-period: 360s;
+  --sky-twinkle-period: 3.4s;
+  --sky-twinkle-step: -0.37s;
+  --sky-twinkle-low: 0.5;
+  --sky-dim: 0.55;
+  --sky-radius: 190;
+  --sky-pull: 0.3;
+  --sky-cap: 18;
+  --sky-stiffness: 90;
+  --sky-damping: 12;
+  --sky-trail: 18;
+  --sky-trail-life: 650;
+  --sky-wave-speed: 420;
+  --sky-wave-life: 1700;
+  --sky-wave-width: 52;
+  --sky-wave-push: 16;
+  --sky-ghost-delay: 2400;
+  --sky-ghost-period: 28000;
+  --sky-ghost-weight: 0.55;
+  --sky-cross-arm: 4;
+  --sky-cross-boost: 7;
+
   /* Instrument controls. */
   --instrument-corner: var(--space-8);
   --instrument-profile: polygon(0 0, calc(100% - var(--instrument-corner)) 0, 100% var(--instrument-corner), 100% 100%, var(--instrument-corner) 100%, 0 calc(100% - var(--instrument-corner)));
