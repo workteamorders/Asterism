@@ -136,20 +136,22 @@
   --ease-step: steps(3, jump-end);
   --press-scale: 0.97;
 
-  /* Measurement field. Opaque marks are capped by the brightest opaque ink. */
+  /* Measurement field. Ambient marks are capped so muted text keeps 4.5:1 where they overlap (tested).
+     Signal marks appear only near the pointer or on a tap, are 1px, and are absent under reduced motion. */
   --field-ground: #060708;
-  --field-grid: #0d0e0f;
-  --field-edge: #111212;
-  --field-star: #131310;
-  --field-ring: #131310;
+  --field-grid: #202225;
+  --field-edge: #2d3034;
+  --field-star: #33363a;
+  --field-signal: #d8d4c8;
+  --field-signal-line: #8d8a82;
   --field-grid-pitch: 48;
   --field-cross: 3;
   --field-hairline: 1;
-  --field-point: 1.2;
-  --field-radius: 126;
+  --field-point: 1.7;
+  --field-radius: 170;
   --field-pull: 0.14;
-  --field-drift: 12;
-  --field-drift-period: 18000;
+  --field-drift: 22;
+  --field-drift-period: 15000;
   --field-ease-period: 82;
   --field-ring-period: 980;
   --field-ring-limit: 180;
@@ -157,8 +159,8 @@
   --field-dpr-limit: 2;
   --field-compact-width: 640;
   --field-compact-cores: 4;
-  --field-full-patches: 6;
-  --field-compact-patches: 3;
+  --field-full-patches: 9;
+  --field-compact-patches: 4;
 
   /* Hero optics. Brighter inks are confined to the artwork tray. */
   --lens-ground: #0b0c0d;

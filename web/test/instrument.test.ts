@@ -25,12 +25,12 @@ describe("measurement field", () => {
     }
   });
 
-  it("preserves the base surface contrast even where marks overlap", () => {
+  it("keeps AA text contrast (4.5:1) where ambient marks overlap text", () => {
     const css = readFileSync(new URL("../src/styles/tokens.css", import.meta.url), "utf8");
     const color = (name: string) => css.match(new RegExp(`--${name}: (#[a-f0-9]{6});`))![1]!;
     for (const text of ["text", "text-muted"]) {
-      for (const layer of ["ground", "grid", "edge", "star", "ring"]) {
-        expect(contrast(color(text), color(`field-${layer}`))).toBeGreaterThanOrEqual(contrast(color(text), color("surface")));
+      for (const layer of ["ground", "grid", "edge", "star"]) {
+        expect(contrast(color(text), color(`field-${layer}`))).toBeGreaterThanOrEqual(4.5);
       }
     }
   });

@@ -21,7 +21,7 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
   const tapGap = number("tap-gap");
   const point = number("point");
   const hairline = number("hairline");
-  const colors = { grid: ink("grid"), edge: ink("edge"), star: ink("star"), ring: ink("ring") };
+  const colors = { grid: ink("grid"), edge: ink("edge"), star: ink("star"), signal: ink("signal"), signalLine: ink("signal-line") };
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const fine = matchMedia("(hover: hover) and (pointer: fine)");
   let width = 1;
@@ -58,6 +58,8 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
     const cursor = animated ? pointer : null;
 
     ctx.beginPath();
+    const near: { x: number; y: number; weight: number; size: number }[] = [];
+    const links = new Path2D();
     stars.forEach((star, i) => {
       const phase = i * 2.399963;
       const x = star.x + (animated ? Math.sin(time + phase) * drift : 0);
@@ -71,8 +73,9 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
       position.x = x + (animated ? star.dx : 0);
       position.y = y + (animated ? star.dy : 0);
       if (cursor && weight > 0) {
-        ctx.moveTo(position.x, position.y);
-        ctx.lineTo(cursor.x, cursor.y);
+        links.moveTo(position.x, position.y);
+        links.lineTo(cursor.x, cursor.y);
+        near.push({ x: position.x, y: position.y, weight, size: point * (1 + star.b / 3) });
       }
     });
     for (const [a, b] of edges) {
@@ -94,13 +97,26 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
     ctx.fillStyle = colors.star;
     ctx.fill();
 
+    if (near.length) {
+      ctx.strokeStyle = colors.signalLine;
+      ctx.stroke(links);
+      ctx.fillStyle = colors.signal;
+      for (const n of near) {
+        ctx.globalAlpha = 0.35 + 0.65 * n.weight;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.size * (1.2 + n.weight), 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
     if (animated && ring) {
       const progress = (elapsed - ring.start) / ringPeriod;
       if (progress >= 1) ring = null;
       else {
         ctx.beginPath();
         ctx.arc(ring.x, ring.y, Math.max(point, progress * ringLimit), 0, 2 * Math.PI);
-        ctx.strokeStyle = colors.ring;
+        ctx.strokeStyle = colors.signal;
         ctx.globalAlpha = 1 - progress;
         ctx.stroke();
         ctx.globalAlpha = 1;
