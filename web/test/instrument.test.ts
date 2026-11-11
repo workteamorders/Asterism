@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { EXAMPLE_SEED } from "@/lib/asterism/preview";
-import { lensPosition } from "@/components/fieldscape/lens";
+import { lensPosition, lensScene, waveProgress } from "@/components/fieldscape/lens";
 import { fieldLayout, shouldAnimate } from "@/components/fieldscape/layout";
 import { interpolateCount } from "@/components/meter/count";
 import { contrast } from "@/lib/color";
@@ -40,6 +40,29 @@ describe("measurement field", () => {
     const middle = lensPosition(3600, 7200, 400, 400, 0.75);
     expect(middle.x - start.x).toBeCloseTo(300);
     expect(lensPosition(7200, 7200, 400, 400, 0.75)).toEqual(start);
+  });
+
+  it("projects three reference constellations into the artwork tray", () => {
+    const scene = lensScene(328, 328);
+    expect(scene).toEqual(lensScene(328, 328));
+    expect(scene).toHaveLength(3);
+    for (const cluster of scene) {
+      expect(cluster.edges).toHaveLength(cluster.stars.length - 1);
+      expect(cluster.stars.filter((star) => star.primary)).toHaveLength(1);
+      for (const star of cluster.stars) {
+        expect(star.x).toBeGreaterThan(0);
+        expect(star.x).toBeLessThan(328);
+        expect(star.y).toBeGreaterThan(0);
+        expect(star.y).toBeLessThan(328);
+      }
+    }
+  });
+
+  it("delays each diffraction wave and lets it finish independently", () => {
+    expect(waveProgress(0, 1000, 0, 0.26)).toBe(0);
+    expect(waveProgress(0, 1000, 1, 0.26)).toBeLessThan(0);
+    expect(waveProgress(260, 1000, 1, 0.26)).toBeCloseTo(0);
+    expect(waveProgress(1520, 1000, 2, 0.26)).toBeCloseTo(1);
   });
 
   it("only schedules motion while visible and permitted", () => {

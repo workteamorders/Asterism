@@ -162,19 +162,32 @@
 
   /* Hero optics. Brighter inks are confined to the artwork tray. */
   --lens-ground: #0b0c0d;
-  --lens-grid: #252627;
-  --lens-edge: #62605a;
+  --lens-grid: #292b2c;
+  --lens-edge: #7c7569;
   --lens-star: #a39d8e;
-  --lens-scan: #c1b59e;
+  --lens-scan: #e1d0af;
+  --lens-secondary: #494943;
+  --lens-signal: #fff4e0;
+  --lens-sweep-ink: #686152;
+  --lens-pitch-minor: 16;
+  --lens-sweep-period: 9600;
+  --lens-sweep-width: 44;
+  --lens-signal-period: 2800;
+  --lens-signal-radius: 2.6;
+  --lens-wave-gap: 0.26;
+  --lens-wave-count: 3;
+  --lens-wave-width: 14;
+  --lens-guide-opacity: 0.52;
+  --lens-station-offset: 12;
   --lens-size: 0.76;
   --lens-point: 1.8;
   --lens-pitch: 32;
   --lens-tick: 5;
-  --lens-period: 7200;
+  --lens-period: 6200;
   --lens-ease-period: 185;
   --lens-band: 64;
   --lens-reticle-radius: 42;
-  --lens-ring-period: 1100;
+  --lens-ring-period: 1350;
   --lens-ring-limit: 150;
   --lens-preview-width: 59%;
   --lens-tray-max: 35rem;
