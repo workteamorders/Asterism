@@ -58,6 +58,14 @@ Selesai bila: halaman Contracts di situs staging menampilkan "Code matches this 
 
 ## 5. Pra-pemeriksaan mainnet
 
+Jalankan pemeriksaan baca-saja ini sebelum simulasi dan ulangi tepat sebelum deploy. Ia tidak mengirim transaksi dan tidak butuh kunci: ia memeriksa konfigurasi, kode WETH dan factory di rantai, jenis alamat treasury, saldo deployer, dan bahwa berkas rahasia reveal memang menghasilkan `revealCommit` (nilai rahasia tidak dicetak).
+
+```bash
+node scripts/preflight.mjs --chain 4663 --deployer <alamat-ledger-anda>
+```
+
+`FAIL` harus nol. Setiap `WARN` adalah keputusan Anda yang dicatat tertulis. Skrip tidak menggantikan membaca ulang parameter oleh dua orang.
+
 - [ ] Audit eksternal selesai; semua temuan ditutup atau diterima tertulis. Taruh URL laporan di `NEXT_PUBLIC_AUDIT_REPORT_URL`.
 - [ ] Tinjauan hukum selesai; teks `/risk/` dan `/terms/` disesuaikan.
 - [ ] Treasury adalah alamat yang benar (kirim jumlah kecil ke sana dan lihat bahwa Anda bisa menggerakkannya) dan penandatanganan multisig diuji.

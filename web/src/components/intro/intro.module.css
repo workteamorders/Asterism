@@ -1,0 +1,184 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-toast);
+  overflow: hidden;
+  cursor: pointer;
+  /* Without JavaScript the overlay removes itself: it becomes invisible and stops catching clicks. */
+  animation: intro-gone 0s linear calc(var(--intro-end) * 1ms) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+}
+
+:global(html[data-intro="off"]) .intro {
+  display: none;
+}
+
+.half {
+  position: absolute;
+  inset: 0 0 50% 0;
+  background: var(--field-ground);
+  animation: half-open var(--intro-open-duration) var(--ease-in-out) var(--intro-open-at) both;
+}
+
+.top {
+  --travel: -101%;
+}
+
+.bottom {
+  inset: 50% 0 0 0;
+  --travel: 101%;
+}
+
+.seam {
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: var(--border);
+  background: var(--starlight);
+  transform-origin: center;
+  animation:
+    seam-draw var(--intro-seam-duration) var(--stage-ease) both,
+    seam-fade var(--intro-fade-duration) linear calc(var(--intro-open-at) - var(--intro-fade-duration) / 2) both;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-16);
+  animation: content-out var(--intro-fade-duration) var(--ease-in) calc(var(--intro-open-at) - var(--intro-fade-duration)) both;
+}
+
+.art {
+  width: min(56vmin, 28rem);
+  height: auto;
+  overflow: visible;
+}
+
+.ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  animation: draw var(--intro-draw-duration) var(--stage-ease) var(--intro-seam-delay) both;
+}
+
+.lines {
+  fill: none;
+  stroke: var(--art-tick);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  animation: draw calc(var(--intro-draw-duration) * 1.3) var(--stage-ease) var(--intro-lines-at) both;
+}
+
+.star {
+  fill: var(--starlight);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: star-in var(--intro-star-duration) var(--stage-ease) calc(var(--intro-stars-at) + var(--i) * var(--intro-star-step)) both;
+}
+
+.word {
+  display: flex;
+  gap: 0.4em;
+  margin: 0;
+  font-size: var(--fs-24);
+  font-weight: var(--wght-semibold);
+  font-stretch: var(--wdth-wide);
+  letter-spacing: var(--ls-readout);
+  color: var(--text);
+}
+
+.word span {
+  display: inline-block;
+  animation: letter-in var(--intro-letter-duration) var(--stage-ease) calc(var(--intro-word-at) + var(--i) * var(--intro-letter-step)) both;
+}
+
+.meta {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  letter-spacing: var(--ls-readout);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  animation: fade-in var(--intro-letter-duration) linear calc(var(--intro-word-at) + var(--intro-meta-delay)) both;
+}
+
+.hint {
+  position: absolute;
+  inset: auto var(--space-24) var(--space-24) auto;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  letter-spacing: var(--ls-readout);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  animation: fade-in var(--intro-letter-duration) linear var(--intro-seam-delay) both, content-out var(--intro-fade-duration) var(--ease-in) calc(var(--intro-open-at) - var(--intro-fade-duration)) both;
+}
+
+@keyframes seam-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes seam-fade {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes star-in {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+
+@keyframes letter-in {
+  from {
+    opacity: 0;
+    translate: 0 var(--space-12);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes content-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes half-open {
+  to {
+    translate: 0 var(--travel);
+  }
+}
+
+@keyframes intro-gone {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}

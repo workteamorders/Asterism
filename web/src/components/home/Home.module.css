@@ -63,3 +63,17 @@
   gap: var(--space-8);
   flex-wrap: wrap;
 }
+
+.compactStatus {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+@media (min-width: 48rem) {
+  .compactStatus {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+  }
+}

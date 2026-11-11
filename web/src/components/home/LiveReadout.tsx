@@ -12,9 +12,19 @@ import { Skeleton } from "../skeleton/Skeleton";
 import styles from "./Home.module.css";
 
 /** The proof above the fold: what the chain says right now, or plainly that nothing is deployed. */
-export function LiveReadout() {
+export function LiveReadout({ compact = false }: { compact?: boolean }) {
   const cfg = useLauncherConfig();
   const st = useLauncherState();
+  if (compact) {
+    const status = st.data?.status;
+    const text = !isDeployed ? "Not deployed" : st.isError ? "Unavailable" : status ? statusLabel(status) : "Reading chain";
+    return (
+      <div className={styles.compactStatus} role="status" aria-label="Launch status">
+        <span className="t-label t-muted">Launch status</span>
+        <Badge tone={status === "Sale" && !st.isError ? "success" : "neutral"}>{text}</Badge>
+      </div>
+    );
+  }
   if (!isDeployed) {
     return (
       <section className={styles.live} data-inspection aria-label="Launch status">

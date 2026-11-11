@@ -2,7 +2,10 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { InstrumentMotion } from "@/components/fieldscape/InstrumentMotion";
 import { Fieldscape } from "@/components/fieldscape/Fieldscape";
+import { INTRO_BOOT } from "@/components/intro/boot";
+import { Intro } from "@/components/intro/Intro";
 import { Rise } from "@/components/motion/Rise";
+import { asterismFor, EXAMPLE_SEED } from "@/lib/asterism/preview";
 import { Providers } from "@/components/providers/Providers";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -57,8 +60,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${archivo.variable} ${martian.variable}`}>
+    <html lang="en" className={`${archivo.variable} ${martian.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: INTRO_BOOT }} />
+      </head>
       <body>
+        <Intro geometry={asterismFor(EXAMPLE_SEED, 97)} />
         <Fieldscape />
         <InstrumentMotion />
         <Rise />

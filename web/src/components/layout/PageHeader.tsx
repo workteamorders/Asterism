@@ -12,9 +12,9 @@ export function PageHeader({ index, title, lead, children }: { index: string; ti
   );
 }
 
-export function Main({ children }: { children: ReactNode }) {
+export function Main({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <main id="main" className={styles.main} tabIndex={-1}>
+    <main id="main" className={`${styles.main} ${className}`} tabIndex={-1}>
       {children}
     </main>
   );

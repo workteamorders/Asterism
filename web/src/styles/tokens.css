@@ -194,6 +194,19 @@
   --lens-preview-width: 59%;
   --lens-tray-max: 35rem;
 
+  /* Observatory map */
+  --map-content-max: 96rem;
+  --map-floor: 21rem;
+  --map-target-max: 15rem;
+  --map-target-width: 27%;
+  --map-target-height-limit: 38cqh;
+  --map-grid-width: 1px;
+  --map-line-width: 1.25px;
+  --map-line-selected: 2px;
+  --map-focus-scale: 1.04;
+  --map-drawer-max: 36rem;
+  --map-reticle-width: min(76%, 34rem);
+
   /* Instrument controls. */
   --instrument-corner: var(--space-8);
   --instrument-profile: polygon(0 0, calc(100% - var(--instrument-corner)) 0, 100% var(--instrument-corner), 100% 100%, var(--instrument-corner) 100%, 0 calc(100% - var(--instrument-corner)));
@@ -230,6 +243,24 @@
   --parallax-distance: var(--space-64);
   --scroll-progress-height: 2px;
   --count-duration: 1400;
+
+  /* Opening: reticle, constellation, wordmark, then a shutter along the seam. --intro-end is when the overlay is gone. */
+  --ease-in-out: cubic-bezier(0.7, 0, 0.2, 1);
+  --intro-seam-duration: 420ms;
+  --intro-seam-delay: 120ms;
+  --intro-draw-duration: 700ms;
+  --intro-stars-at: 300ms;
+  --intro-star-step: 70ms;
+  --intro-star-duration: 420ms;
+  --intro-lines-at: 850ms;
+  --intro-word-at: 1000ms;
+  --intro-letter-step: 45ms;
+  --intro-letter-duration: 520ms;
+  --intro-meta-delay: 360ms;
+  --intro-fade-duration: 260ms;
+  --intro-open-at: 2000ms;
+  --intro-open-duration: 700ms;
+  --intro-end: 2800; /* milliseconds, unitless so scripts can read it after minification */
 
   /* Layers. */
   --z-header: 10;

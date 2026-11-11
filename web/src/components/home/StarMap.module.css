@@ -1,0 +1,244 @@
+.instrument {
+  display: grid;
+  grid-template-rows: auto minmax(var(--map-floor), 1fr) auto;
+  min-height: calc(100svh - var(--space-64) - var(--space-32));
+  margin-block: var(--space-16) var(--space-32);
+  background: var(--lens-ground);
+  border: var(--border) solid var(--line);
+}
+
+.intro,
+.console {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  background: var(--surface);
+}
+
+.intro {
+  align-items: start;
+  border-bottom: var(--border) solid var(--line);
+}
+
+.intro h1 {
+  font-size: var(--fs-24);
+}
+
+.intro p,
+.seed {
+  color: var(--text-muted);
+  font-size: var(--fs-14);
+  line-height: var(--lh-snug);
+}
+
+.intro p {
+  margin-top: var(--space-4);
+}
+
+.viewport {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.sky {
+  position: relative;
+  container-type: size;
+}
+
+.grid,
+.reticle {
+  position: absolute;
+  pointer-events: none;
+  color: var(--lens-grid);
+  stroke: currentColor;
+  stroke-width: var(--map-grid-width);
+}
+
+.grid {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+}
+
+.grid rect {
+  stroke: none;
+}
+
+.grid pattern {
+  stroke: var(--art-guide);
+}
+
+.reticle {
+  top: 50%;
+  left: 50%;
+  width: var(--map-reticle-width);
+  transform: translate(-50%, -50%);
+  stroke-dasharray: var(--space-4) var(--space-8);
+}
+
+.target {
+  position: absolute;
+  top: var(--map-y);
+  left: var(--map-x);
+  display: grid;
+  justify-items: center;
+  width: min(var(--map-target-width), var(--map-target-max), var(--map-target-height-limit));
+  min-height: var(--tap);
+  padding: 0 0 var(--space-4);
+  color: var(--text);
+  background: transparent;
+  border: var(--border) solid transparent;
+  transform: translate(-50%, -50%);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.geometry {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  pointer-events: none;
+  transition: transform var(--dur-element) var(--ease-out);
+}
+
+.geometry line,
+.primary {
+  stroke: var(--lens-edge);
+  stroke-width: var(--map-line-width);
+  vector-effect: non-scaling-stroke;
+}
+
+.geometry circle {
+  fill: var(--starlight);
+}
+
+.geometry .primary {
+  fill: none;
+}
+
+.targetLabel {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 var(--space-4);
+  border: var(--border) solid var(--line);
+  background: var(--surface);
+  color: var(--text-muted);
+  font: var(--fs-12) var(--font-mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.target:is(:hover, :focus-visible, [aria-expanded="true"]) .geometry line,
+.target:is(:hover, :focus-visible, [aria-expanded="true"]) .primary {
+  stroke: var(--lens-signal);
+  stroke-width: var(--map-line-selected);
+}
+
+.target[aria-expanded="true"] .geometry {
+  transform: scale(var(--map-focus-scale));
+}
+
+.target[aria-expanded="true"] .targetLabel {
+  border-color: var(--starlight);
+  color: var(--text);
+}
+
+.drawer {
+  justify-self: center;
+  width: min(calc(100% - var(--space-16)), var(--map-drawer-max));
+  padding: var(--space-8) var(--space-16) var(--space-16);
+  border: var(--border) solid var(--line-strong);
+  background: var(--surface-raised);
+  animation: drawer-in var(--dur-element) var(--ease-out) both;
+}
+
+.drawerHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.drawerHead h2 {
+  overflow-wrap: anywhere;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: var(--border) solid var(--line);
+}
+
+.metrics dt {
+  color: var(--text-muted);
+  font-size: var(--fs-12);
+}
+
+.metrics dd {
+  font-family: var(--font-mono);
+  font-size: var(--fs-14);
+}
+
+.seed {
+  margin-top: var(--space-8);
+}
+
+.empty {
+  position: absolute;
+  inset: 45% var(--space-16) auto;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.console {
+  flex-wrap: wrap;
+  border-top: var(--border) solid var(--line);
+}
+
+.navigation,
+.launch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.launch {
+  justify-content: space-between;
+}
+
+.previous {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 47.99rem) {
+  .console {
+    display: grid;
+    padding-inline: var(--space-8);
+  }
+
+  .navigation {
+    justify-content: space-between;
+  }
+
+  .buttonSuffix {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer { animation: none; }
+  .geometry { transition: none; }
+  .target[aria-expanded="true"] .geometry { transform: none; }
+}
+
+@keyframes drawer-in {
+  from { transform: translateY(var(--space-16)); opacity: 0; }
+}

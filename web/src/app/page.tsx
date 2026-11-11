@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
-import { HeroArt } from "@/components/home/HeroArt";
-import { LiveReadout } from "@/components/home/LiveReadout";
+import { StarMap } from "@/components/home/StarMap";
 import { Main } from "@/components/layout/PageHeader";
 import { AsterismImage } from "@/components/asterism/AsterismImage";
 import { Badge } from "@/components/badge/Badge";
@@ -10,8 +9,6 @@ import { Icon } from "@/components/icon/Icon";
 import { CountUp } from "@/components/motion/CountUp";
 import { Marquee } from "@/components/motion/Marquee";
 import { PhaseStage, type Phase } from "@/components/motion/PhaseStage";
-import { SplitText } from "@/components/motion/SplitText";
-import m from "@/components/motion/motion.module.css";
 import { asterismFor, asterismUri, EXAMPLE_SEED } from "@/lib/asterism/preview";
 import { MARK_NAMES, TIER_COUNTS, TIER_NAMES, TIER_STARS } from "@/lib/asterism/spec";
 import { AUDIT_REPORT_URL } from "@/lib/env";
@@ -66,35 +63,8 @@ const CHECKS = [
 
 export default function Home() {
   return (
-    <Main>
-      <section className={s.hero} aria-labelledby="hero-title">
-        <div className={s.heroText}>
-          <span className={`${s.kicker} ${m.heroIn}`} style={order(0, "--hero-order")}>
-            On-chain asterisms · Robinhood Chain
-          </span>
-          <h1 className="t-display" id="hero-title">
-            <SplitText text="Every asterism is drawn by the contract." />
-          </h1>
-          <p className={`${s.lead} ${m.heroSlide}`} style={order(5, "--hero-order")}>
-            2,222 hybrid tokens. One whole token carries one asterism: stars, lines and a tier mark rendered as SVG on-chain from
-            a seed revealed after the sale. Fixed price, no tax, and pool liquidity that can never be withdrawn.
-          </p>
-          <div className={`${s.actions} ${m.heroIn}`} style={order(6, "--hero-order")}>
-            <PrimaryLink />
-            <Link href="/rules/" className="t-small">
-              How it works
-            </Link>
-          </div>
-        </div>
-        <div className={`${s.heroVisual} ${m.parallax}`}>
-          <div className={m.heroSlide} style={order(3, "--hero-order")}>
-            <HeroArt />
-          </div>
-        </div>
-        <div className={`${s.heroStatus} ${m.heroIn}`} style={order(7, "--hero-order")}>
-          <LiveReadout />
-        </div>
-      </section>
+    <Main className={s.home}>
+      <StarMap />
 
       <Marquee items={FACTS} label="Launch facts" />
 
