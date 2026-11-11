@@ -1,0 +1,12 @@
+{
+  "chainId": 31337,
+  "launcher": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+  "mirror": "0x79F970a8456725f1CFB263a899522b629319C680",
+  "renderer": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+  "saleStart": 1794368365,
+  "sink": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+  "testSecret": "0x477bd2a5460b2feaf69ea8e3770d02dcd5bf0cd14c20fe84a51e794e7ecd1892",
+  "token": "0xd8058efe0198ae9dD7D563e1b4938Dcbc86A1F81",
+  "uniswapV2Factory": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "weth": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+}

@@ -1,0 +1,170 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: var(--control-m);
+  min-width: var(--tap);
+  padding: 0 var(--space-24);
+  border: var(--border) solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: var(--fs-16);
+  font-weight: var(--wght-semibold);
+  font-stretch: var(--wdth-normal);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    transform var(--dur-micro) var(--ease-out),
+    opacity var(--dur-micro) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.s {
+  min-height: var(--control-s);
+  padding: 0 var(--space-16);
+  font-size: var(--fs-14);
+}
+
+.l {
+  min-height: var(--control-l);
+  padding: 0 var(--space-32);
+  font-size: var(--fs-16);
+  font-stretch: var(--wdth-wide);
+}
+
+.iconOnly {
+  padding: 0;
+  width: var(--control-m);
+}
+
+.iconOnly.s {
+  width: var(--control-s);
+}
+
+.iconOnly.l {
+  width: var(--control-l);
+}
+
+/* Primary: the single most important action on a view. */
+.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.primary:hover,
+.primary[data-state="hover"] {
+  background: var(--accent-hover);
+}
+
+.primary:active,
+.primary[data-state="pressed"] {
+  background: var(--accent-pressed);
+}
+
+/* Secondary: bordered, raised one step. */
+.secondary {
+  background: var(--surface-raised);
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.secondary:hover,
+.secondary[data-state="hover"] {
+  background: var(--surface-hover);
+  border-color: var(--text-muted);
+}
+
+.secondary:active,
+.secondary[data-state="pressed"] {
+  background: var(--surface-pressed);
+}
+
+/* Ghost: text-weight action. */
+.ghost {
+  background: transparent;
+  color: var(--text);
+}
+
+.ghost:hover,
+.ghost[data-state="hover"] {
+  background: var(--surface-hover);
+}
+
+.ghost:active,
+.ghost[data-state="pressed"] {
+  background: var(--surface-pressed);
+}
+
+/* Danger: irreversible or destructive. Icon and specific verb are mandatory. */
+.danger {
+  background: var(--danger-tint);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.danger:hover,
+.danger[data-state="hover"] {
+  background: var(--surface-hover);
+}
+
+.danger:active,
+.danger[data-state="pressed"] {
+  background: var(--surface-pressed);
+}
+
+/* Physical press feedback. */
+.button:active,
+.button[data-state="pressed"] {
+  transform: translateY(1px) scale(var(--press-scale));
+}
+
+.button[data-state="focus"] {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  background: var(--surface-raised);
+  border-color: var(--line);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Loading keeps the label in place so the width never changes. */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: opacity var(--dur-micro) var(--ease-out);
+}
+
+.loading .label {
+  opacity: 0;
+}
+
+.spinner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.spinner svg {
+  animation: turn 800ms steps(8, end) infinite;
+}
+
+.loading {
+  cursor: progress;
+}
+
+@keyframes turn {
+  to {
+    transform: rotate(360deg);
+  }
+}

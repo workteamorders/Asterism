@@ -1,0 +1,51 @@
+.stack {
+  display: grid;
+  gap: var(--space-48);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.cards {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-16) var(--space-24);
+  background: var(--surface-raised);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+
+.cardHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-16);
+  align-items: baseline;
+}
+
+.statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.panel {
+  padding: var(--space-8) var(--space-24);
+  background: var(--surface-raised);
+  border-radius: var(--radius);
+}
+
+.constant {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-8);
+  align-items: center;
+}

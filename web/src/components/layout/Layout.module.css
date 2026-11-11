@@ -1,0 +1,226 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: var(--surface);
+  border-bottom: var(--border) solid var(--line);
+  padding-top: env(safe-area-inset-top);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  max-width: var(--content-max);
+  min-height: var(--space-64);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--tap);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: var(--wght-semibold);
+  font-stretch: var(--wdth-display);
+  letter-spacing: var(--ls-label);
+  font-size: var(--fs-16);
+}
+
+.brand svg {
+  color: var(--starlight);
+}
+
+.nav {
+  display: none;
+  gap: var(--space-4);
+  margin-left: var(--space-16);
+}
+
+.nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-12);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--fs-14);
+  font-weight: var(--wght-medium);
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+.nav a[aria-current="page"] {
+  color: var(--text);
+}
+
+.nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: var(--space-12);
+  right: var(--space-12);
+  bottom: var(--space-4);
+  height: 2px;
+  background: var(--accent);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.net {
+  display: none;
+}
+
+.menuButton {
+  display: inline-flex;
+}
+
+@media (min-width: 64rem) {
+  .nav {
+    display: flex;
+  }
+
+  .net {
+    display: inline-flex;
+  }
+
+  .menuButton {
+    display: none;
+  }
+}
+
+.drawerNav {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.drawerNav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--control-l);
+  padding: 0 var(--space-16);
+  background: var(--surface-raised);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: var(--wght-semibold);
+}
+
+.drawerNav a[aria-current="page"] {
+  outline: var(--border) solid var(--accent);
+}
+
+.drawerFoot {
+  display: grid;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+}
+
+.footer {
+  margin-top: var(--rhythm-loose);
+  border-top: var(--border) solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.footInner {
+  display: grid;
+  gap: var(--space-32);
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-48) var(--gutter) var(--space-32);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: var(--space-24);
+}
+
+.col {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+
+.col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--fs-14);
+}
+
+.col a:hover {
+  color: var(--text);
+}
+
+.col p {
+  font-size: var(--fs-14);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.legal {
+  display: grid;
+  gap: var(--space-8);
+  padding-top: var(--space-24);
+  border-top: var(--border) solid var(--line);
+  font-size: var(--fs-14);
+  color: var(--text-muted);
+}
+
+.readoutLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-16);
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  letter-spacing: var(--ls-readout);
+  color: var(--text-muted);
+}
+
+.pageHead {
+  display: grid;
+  gap: var(--space-16);
+  padding: var(--space-48) 0 var(--space-32);
+}
+
+.index {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  letter-spacing: var(--ls-readout);
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.index::before {
+  content: "";
+  width: var(--space-12);
+  height: var(--border);
+  background: var(--art-tick);
+}
+
+.lead {
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: var(--fs-20);
+  line-height: 1.5;
+}
+
+.main {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}

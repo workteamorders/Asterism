@@ -1,0 +1,69 @@
+.connect {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.options {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.option {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-12);
+  align-items: center;
+  width: 100%;
+  min-height: var(--control-l);
+  padding: 0 var(--space-16);
+  background: var(--surface-raised);
+  border: var(--border) solid var(--line-strong);
+  border-radius: var(--radius);
+  text-align: left;
+  font-weight: var(--wght-semibold);
+  transition: transform var(--dur-micro) var(--ease-out);
+}
+
+.option:hover {
+  background: var(--surface-hover);
+}
+
+.option:active {
+  transform: scale(var(--press-scale));
+}
+
+.walletIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius);
+}
+
+.error {
+  display: flex;
+  gap: var(--space-8);
+  align-items: center;
+  color: var(--danger);
+  font-size: var(--fs-14);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.dot {
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.dotWarn {
+  background: var(--warning);
+}
+
+.menu {
+  display: grid;
+  gap: var(--space-12);
+}

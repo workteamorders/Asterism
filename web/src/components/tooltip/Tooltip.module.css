@@ -1,0 +1,49 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.tip {
+  position: absolute;
+  z-index: var(--z-overlay);
+  bottom: calc(100% + var(--space-8));
+  left: 50%;
+  width: max-content;
+  max-width: 16rem;
+  padding: var(--space-8) var(--space-12);
+  background: var(--surface-floating);
+  box-shadow: var(--elev-floating-ring);
+  border-radius: var(--radius);
+  font-size: var(--fs-14);
+  line-height: 1.4;
+  color: var(--text);
+  opacity: 0;
+  transform: translate(-50%, var(--space-4));
+  pointer-events: none;
+  transition:
+    opacity var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+
+.wrap:hover .tip,
+.wrap:focus-within .tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap);
+  min-height: var(--tap);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  border-radius: var(--radius);
+}
+
+.trigger:hover {
+  color: var(--text);
+}

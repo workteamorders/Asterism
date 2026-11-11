@@ -1,0 +1,35 @@
+.wrap {
+  display: grid;
+  gap: var(--space-12);
+  max-width: 22rem;
+  margin-bottom: var(--space-32);
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--art-ground);
+  outline: var(--border) solid var(--line);
+  overflow: hidden;
+}
+
+.base,
+.ghost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition:
+    opacity var(--dur-element) var(--ease-step),
+    transform var(--dur-element) var(--ease-step);
+}
+
+.ghost {
+  mix-blend-mode: screen;
+}
+
+.slider {
+  width: 100%;
+  min-height: var(--tap);
+  accent-color: var(--accent);
+}

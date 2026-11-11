@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+out-e2e/
+.wrangler/
+contracts/lib/
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example

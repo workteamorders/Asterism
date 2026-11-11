@@ -1,0 +1,21 @@
+{
+  "name": "Asterism",
+  "symbol": "ASTERISM",
+  "mintPriceWei": "REPLACE_wei_per_whole_token_as_a_number",
+  "walletCap": 10,
+  "txCap": 5,
+  "saleStart": 0,
+  "saleEnd": 0,
+  "finalizeWindowSeconds": 259200,
+  "revealWindowSeconds": 259200,
+  "treasury": "REPLACE_treasury_address",
+  "revealCommit": "REPLACE_output_of_scripts_gen-commit.mjs",
+  "weth": "REPLACE_testnet_wrapped_ether_address",
+  "uniswapV2Factory": "REPLACE_testnet_uniswap_v2_factory_address",
+  "_notes": [
+    "Copy to 46630.json and edit. Remove these notes and every REPLACE_ value.",
+    "The testnet has no official Uniswap V2 deployment (docs/DECISIONS.md D-007). For a rehearsal run scripts/deploy.sh dex-testnet --account <keystore> --broadcast, which deploys a stand-in WETH and V2-compatible factory (test mocks, not Uniswap), and put the two printed addresses here. The launcher refuses addresses without code.",
+    "saleStart and saleEnd are unix seconds. saleStart must be more than one hour in the future when you deploy.",
+    "mintPriceWei is a JSON number, in wei per whole token."
+  ]
+}

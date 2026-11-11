@@ -1,0 +1,57 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+solc = "0.8.28"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 200
+via_ir = false
+bytecode_hash = "none"
+cbor_metadata = false
+remappings = [
+  "forge-std/=lib/forge-std/src/",
+  "dn404/=lib/dn404/src/",
+  "solady/=lib/solady/src/",
+]
+fs_permissions = [
+  { access = "read", path = "./test/fixtures" },
+  { access = "read-write", path = "../deployments" },
+]
+gas_limit = 9223372036854775807
+block_gas_limit = 9223372036854775807
+memory_limit = 2147483648
+deny = "warnings"
+
+[profile.default.fuzz]
+runs = 512
+seed = "0x415354"
+
+[profile.default.invariant]
+runs = 64
+depth = 64
+fail_on_revert = false
+show_metrics = true
+
+# Isolated build container without network: a local solc binary and no network access (decision D-018).
+# Run with FOUNDRY_PROFILE=container. Everywhere else the default profile downloads solc 0.8.28 once.
+[profile.container]
+solc = "/opt/solc/solc-0.8.28"
+offline = true
+
+[profile.ci.fuzz]
+runs = 4096
+
+[fmt]
+line_length = 120
+
+# forge lint runs on every build. Lints excluded globally, with the reason recorded in docs/AUDIT-PACKET.md:
+# - uninitialized-local: Solidity zero-initialises locals; every case is an intentional zero start (sums, loop indices).
+# - encode-packed-collision: abi.encodePacked with dynamic types is only used to build strings, never hashed.
+# - block-timestamp: sale windows rely on block.timestamp by design (D-008); windows are hours, not seconds.
+# - require-revert-in-loop: constructor validation loops and a hard stop that is unreachable by proof.
+[lint]
+exclude_lints = ["uninitialized-local", "encode-packed-collision", "block-timestamp", "require-revert-in-loop"]
+ignore = ["test/**", "script/**", "lib/**"]

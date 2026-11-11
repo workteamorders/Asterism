@@ -1,0 +1,9 @@
+{
+  "chainId": 4663,
+  "network": "Robinhood Chain",
+  "explorer": "https://robinhoodchain.blockscout.com",
+  "deployedAtBlock": 0,
+  "addresses": null,
+  "params": null,
+  "auditReportUrl": ""
+}

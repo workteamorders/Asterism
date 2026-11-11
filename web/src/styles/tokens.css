@@ -1,0 +1,165 @@
+/*
+ * Asterism design tokens. Direction: Diffraction.
+ * Every visual value in the product comes from this file. Components never hard-code colour,
+ * size, space, radius, shadow, or timing. Names describe roles, not colours.
+ *
+ * Mode: dark only. The product reads like an optical instrument: a neutral graphite housing
+ * (never navy, never violet), warm starlight, and one focus-confirm accent used sparingly.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces. Layers are separated by luminance steps, never by blurred shadows. */
+  --surface: #121315;
+  --surface-sunken: #0c0d0e;
+  --surface-raised: #1c1d20;
+  --surface-floating: #26282c;
+  --surface-hover: #222327;
+  --surface-pressed: #18191b;
+  --scrim: rgb(8 9 10 / 0.72);
+
+  /* Lines. --line is decorative (separators). --line-strong is for component boundaries (>= 3:1). */
+  --line: #2e3035;
+  --line-strong: #6a6e76;
+
+  /* Text. */
+  --text: #ecedee; /* 15.9:1 on --surface */
+  --text-muted: #9a9ea6; /* 6.9:1 on --surface, 6.3:1 on --surface-raised */
+  --text-disabled: #6a6e76; /* decorative only; disabled controls are exempt from contrast */
+
+  /* Accent: focus confirm. Marks the single most important action on a view. */
+  --accent: #b9f15a; /* 14.0:1 on --surface */
+  --accent-hover: #ccf784;
+  --accent-pressed: #a3dc42;
+  --on-accent: #121315;
+
+  /* Support: starlight. Used for stars, marks, and art; not for interface chrome. */
+  --starlight: #fff4e0;
+
+  /* Status. Always paired with an icon and a label; colour never carries meaning alone. */
+  --success: #4fd1a1;
+  --warning: #f0b04a;
+  --danger: #ff7b6b;
+  --info: #7fb2ff;
+  --success-tint: #142821;
+  --warning-tint: #2a2214;
+  --danger-tint: #2d1917;
+  --info-tint: #17202e;
+
+  /* Art colours, shared with the on-chain renderer. */
+  --art-ground: #121315;
+  --art-guide: #24262b;
+  --art-tick: #5a5e66;
+  --art-line: #4b4e55;
+
+  /* Typography: families. Archivo has a width axis (62-125); Martian Mono is for figures and readouts. */
+  --font-sans: var(--font-archivo), "Archivo Fallback", system-ui, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Typography: scale (ratio about 1.25). Sizes in px; display sizes shrink fluidly. */
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-32: clamp(1.625rem, 1.2rem + 1.4vw, 2rem);
+  --fs-44: clamp(2rem, 1.3rem + 2.6vw, 2.75rem);
+  --fs-60: clamp(2.5rem, 1.4rem + 4.2vw, 3.75rem);
+
+  --lh-tight: 1.05;
+  --lh-heading: 1.15;
+  --lh-snug: 1.3;
+  --lh-body: 1.6;
+
+  --wdth-condensed: 82%;
+  --wdth-normal: 100%;
+  --wdth-wide: 112%;
+  --wdth-display: 120%;
+
+  --wght-regular: 400;
+  --wght-medium: 500;
+  --wght-semibold: 600;
+  --wght-display: 560;
+
+  --ls-display: -0.02em;
+  --ls-heading: -0.01em;
+  --ls-body: 0;
+  --ls-label: 0.08em;
+  --ls-readout: 0.04em;
+
+  --measure: 68ch;
+
+  /* Space: multiples of 4 only. */
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+  --space-96: 6rem;
+
+  /* Rhythm: three levels only. */
+  --rhythm-tight: var(--space-8);
+  --rhythm-medium: var(--space-24);
+  --rhythm-loose: var(--space-64);
+
+  /* Layout. */
+  --content-max: 75rem; /* 1200px */
+  --gutter: var(--space-16);
+  --tap: 2.75rem; /* 44px minimum touch target */
+  --control-s: 2.75rem;
+  --control-m: 3rem;
+  --control-l: 3.5rem;
+
+  /* Shape: one language. Sharp 2px corners, 1px lines, separation by luminance. */
+  --radius: 2px;
+  --radius-none: 0;
+  --border: 1px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+
+  /* Elevation: three levels. Flat = surface. Raised = one step lighter. Floating = two steps + ring. */
+  --elev-flat-bg: var(--surface);
+  --elev-raised-bg: var(--surface-raised);
+  --elev-floating-bg: var(--surface-floating);
+  --elev-floating-ring: 0 0 0 var(--border) var(--line-strong);
+
+  /* Motion: stepped and firm, like a focus motor. Only transform and opacity animate. */
+  --dur-micro: 100ms;
+  --dur-element: 200ms;
+  --dur-panel: 320ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in: cubic-bezier(0.5, 0, 1, 1);
+  --ease-step: steps(3, jump-end);
+  --press-scale: 0.97;
+
+  /* Layers. */
+  --z-header: 10;
+  --z-overlay: 40;
+  --z-dialog: 50;
+  --z-toast: 60;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter: var(--space-24);
+  }
+}
+
+@media (min-width: 80rem) {
+  :root {
+    --gutter: var(--space-32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-micro: 0.01ms;
+    --dur-element: 0.01ms;
+    --dur-panel: 0.01ms;
+    --press-scale: 1;
+  }
+}

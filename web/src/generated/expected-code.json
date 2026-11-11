@@ -1,0 +1,386 @@
+{
+ "AsterismLauncher": {
+  "codeHashMasked": "0x3f4e9d6d63cd5ec98f1a55a88e89009218cc2a4efef4756c03c9f30980cd785d",
+  "immutableRefs": [
+   {
+    "start": 2408,
+    "length": 32
+   },
+   {
+    "start": 2878,
+    "length": 32
+   },
+   {
+    "start": 3417,
+    "length": 32
+   },
+   {
+    "start": 3548,
+    "length": 32
+   },
+   {
+    "start": 5656,
+    "length": 32
+   },
+   {
+    "start": 7664,
+    "length": 32
+   },
+   {
+    "start": 8217,
+    "length": 32
+   },
+   {
+    "start": 1725,
+    "length": 32
+   },
+   {
+    "start": 2204,
+    "length": 32
+   },
+   {
+    "start": 4013,
+    "length": 32
+   },
+   {
+    "start": 990,
+    "length": 32
+   },
+   {
+    "start": 5831,
+    "length": 32
+   },
+   {
+    "start": 1469,
+    "length": 32
+   },
+   {
+    "start": 4430,
+    "length": 32
+   },
+   {
+    "start": 4521,
+    "length": 32
+   },
+   {
+    "start": 7918,
+    "length": 32
+   },
+   {
+    "start": 8016,
+    "length": 32
+   },
+   {
+    "start": 835,
+    "length": 32
+   },
+   {
+    "start": 5182,
+    "length": 32
+   },
+   {
+    "start": 5962,
+    "length": 32
+   },
+   {
+    "start": 1159,
+    "length": 32
+   },
+   {
+    "start": 2919,
+    "length": 32
+   },
+   {
+    "start": 3114,
+    "length": 32
+   },
+   {
+    "start": 3706,
+    "length": 32
+   },
+   {
+    "start": 3851,
+    "length": 32
+   },
+   {
+    "start": 2153,
+    "length": 32
+   },
+   {
+    "start": 2962,
+    "length": 32
+   },
+   {
+    "start": 3154,
+    "length": 32
+   },
+   {
+    "start": 2336,
+    "length": 32
+   },
+   {
+    "start": 6755,
+    "length": 32
+   },
+   {
+    "start": 8525,
+    "length": 32
+   },
+   {
+    "start": 784,
+    "length": 32
+   },
+   {
+    "start": 2553,
+    "length": 32
+   },
+   {
+    "start": 4674,
+    "length": 32
+   },
+   {
+    "start": 4939,
+    "length": 32
+   },
+   {
+    "start": 6459,
+    "length": 32
+   },
+   {
+    "start": 7210,
+    "length": 32
+   },
+   {
+    "start": 672,
+    "length": 32
+   },
+   {
+    "start": 2018,
+    "length": 32
+   },
+   {
+    "start": 6684,
+    "length": 32
+   },
+   {
+    "start": 906,
+    "length": 32
+   },
+   {
+    "start": 1520,
+    "length": 32
+   },
+   {
+    "start": 6648,
+    "length": 32
+   },
+   {
+    "start": 6815,
+    "length": 32
+   },
+   {
+    "start": 7291,
+    "length": 32
+   },
+   {
+    "start": 8449,
+    "length": 32
+   },
+   {
+    "start": 1377,
+    "length": 32
+   },
+   {
+    "start": 4896,
+    "length": 32
+   },
+   {
+    "start": 7134,
+    "length": 32
+   },
+   {
+    "start": 1776,
+    "length": 32
+   },
+   {
+    "start": 5002,
+    "length": 32
+   },
+   {
+    "start": 5041,
+    "length": 32
+   },
+   {
+    "start": 7054,
+    "length": 32
+   },
+   {
+    "start": 1901,
+    "length": 32
+   },
+   {
+    "start": 4586,
+    "length": 32
+   },
+   {
+    "start": 6914,
+    "length": 32
+   },
+   {
+    "start": 2069,
+    "length": 32
+   },
+   {
+    "start": 2596,
+    "length": 32
+   },
+   {
+    "start": 2698,
+    "length": 32
+   },
+   {
+    "start": 4631,
+    "length": 32
+   },
+   {
+    "start": 4758,
+    "length": 32
+   },
+   {
+    "start": 5404,
+    "length": 32
+   },
+   {
+    "start": 6956,
+    "length": 32
+   },
+   {
+    "start": 1623,
+    "length": 32
+   },
+   {
+    "start": 2665,
+    "length": 32
+   },
+   {
+    "start": 4725,
+    "length": 32
+   },
+   {
+    "start": 5371,
+    "length": 32
+   },
+   {
+    "start": 1674,
+    "length": 32
+   },
+   {
+    "start": 6208,
+    "length": 32
+   }
+  ],
+  "runtimeSize": 9427
+ },
+ "AsterismToken": {
+  "codeHashMasked": "0xdbd93e8fa7a6ec137a2dd5ccb7c876cb1b27066681967cf5b8abd3756a932fdd",
+  "immutableRefs": [
+   {
+    "start": 1228,
+    "length": 32
+   },
+   {
+    "start": 2199,
+    "length": 32
+   },
+   {
+    "start": 2873,
+    "length": 32
+   },
+   {
+    "start": 4007,
+    "length": 32
+   },
+   {
+    "start": 4194,
+    "length": 32
+   },
+   {
+    "start": 4281,
+    "length": 32
+   },
+   {
+    "start": 4417,
+    "length": 32
+   },
+   {
+    "start": 4500,
+    "length": 32
+   },
+   {
+    "start": 5893,
+    "length": 32
+   },
+   {
+    "start": 1642,
+    "length": 32
+   },
+   {
+    "start": 3028,
+    "length": 32
+   },
+   {
+    "start": 3153,
+    "length": 32
+   },
+   {
+    "start": 4654,
+    "length": 32
+   },
+   {
+    "start": 1953,
+    "length": 32
+   },
+   {
+    "start": 6133,
+    "length": 32
+   }
+  ],
+  "runtimeSize": 12309
+ },
+ "AsterismRenderer": {
+  "codeHashMasked": "0x230f01019e87e0f256a33db818dcdb35b75c94daa5914a713fa6c126fab22143",
+  "immutableRefs": [
+   {
+    "start": 445,
+    "length": 32
+   },
+   {
+    "start": 4096,
+    "length": 32
+   },
+   {
+    "start": 4217,
+    "length": 32
+   },
+   {
+    "start": 1605,
+    "length": 32
+   },
+   {
+    "start": 1667,
+    "length": 32
+   }
+  ],
+  "runtimeSize": 12107
+ },
+ "DN404Mirror": {
+  "codeHashMasked": "0x71e52fc65d7de7cb3010f862c3e0297576d4ae8f34863f72ba23cd441d072f94",
+  "immutableRefs": [],
+  "runtimeSize": 2999
+ },
+ "LiquiditySink": {
+  "codeHashMasked": "0xa96b3bdbed0cf8228f4d0349d93d3f51db72df44902515903bae1b95ad0a35d9",
+  "immutableRefs": [],
+  "runtimeSize": 8
+ }
+}

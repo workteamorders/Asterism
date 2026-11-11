@@ -1,0 +1,29 @@
+{
+  "chainId": 31337,
+  "network": "Local anvil",
+  "explorer": "",
+  "deployedAtBlock": 4,
+  "addresses": {
+    "renderer": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "launcher": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    "token": "0xd8058efe0198ae9dD7D563e1b4938Dcbc86A1F81",
+    "mirror": "0x79F970a8456725f1CFB263a899522b629319C680",
+    "sink": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd"
+  },
+  "params": {
+    "name": "Asterism",
+    "symbol": "ASTERISM",
+    "mintPriceWei": "2000000000000000",
+    "walletCap": 10,
+    "txCap": 5,
+    "saleStart": 1794368365,
+    "saleEnd": 1794454765,
+    "finalizeWindowSeconds": 86400,
+    "revealWindowSeconds": 86400,
+    "treasury": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "revealCommit": "0x13b9f3ad773b3cf9a87398a41e95d86969438d082771e8f57231b7abafe66493",
+    "weth": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "uniswapV2Factory": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+  },
+  "auditReportUrl": ""
+}

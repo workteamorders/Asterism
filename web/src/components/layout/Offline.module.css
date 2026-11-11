@@ -1,0 +1,8 @@
+.banner {
+  padding: var(--space-12) var(--gutter);
+  background: var(--warning-tint);
+  border-bottom: var(--border) solid var(--warning);
+  color: var(--text);
+  font-size: var(--fs-14);
+  text-align: center;
+}

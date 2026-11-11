@@ -1,0 +1,9 @@
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+export default defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  globalIgnores([".next/**", "out/**", "out-e2e/**", ".wrangler/**", "next-env.d.ts", "src/generated/**", "scripts/**", "test/e2e/**"]),
+]);

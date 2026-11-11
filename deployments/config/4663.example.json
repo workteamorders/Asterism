@@ -1,0 +1,20 @@
+{
+  "name": "Asterism",
+  "symbol": "ASTERISM",
+  "mintPriceWei": "REPLACE_wei_per_whole_token_as_a_number",
+  "walletCap": 10,
+  "txCap": 5,
+  "saleStart": 0,
+  "saleEnd": 0,
+  "finalizeWindowSeconds": 259200,
+  "revealWindowSeconds": 259200,
+  "treasury": "REPLACE_treasury_address_ideally_a_multisig",
+  "revealCommit": "REPLACE_output_of_scripts_gen-commit.mjs",
+  "weth": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+  "uniswapV2Factory": "0x8bcEaA40B9AcdfAedF85AdF4FF01F5Ad6517937f",
+  "_notes": [
+    "Copy to 4663.json and edit. Remove these notes and every REPLACE_ value.",
+    "weth and uniswapV2Factory above are the official Robinhood Chain mainnet addresses recorded in docs/DECISIONS.md. The deploy script refuses any other values on mainnet.",
+    "Every value here becomes permanent when the launcher is deployed."
+  ]
+}

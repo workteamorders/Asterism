@@ -1,0 +1,9 @@
+{
+  "chainId": 46630,
+  "network": "Robinhood Chain Testnet",
+  "explorer": "https://explorer.testnet.chain.robinhood.com",
+  "deployedAtBlock": 0,
+  "addresses": { "renderer": "", "launcher": "", "token": "", "mirror": "", "sink": "" },
+  "params": null,
+  "auditReportUrl": ""
+}

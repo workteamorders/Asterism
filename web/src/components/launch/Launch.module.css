@@ -1,0 +1,79 @@
+.grid {
+  display: grid;
+  gap: var(--space-24);
+  align-items: start;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-16);
+  padding: var(--space-24);
+  background: var(--surface-raised);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+
+.panelHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.panelTitle {
+  font-size: var(--fs-20);
+  font-weight: var(--wght-semibold);
+  font-stretch: var(--wdth-wide);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.stepper {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-12);
+  padding: var(--space-12) 0;
+  border-top: var(--border) solid var(--line);
+  border-bottom: var(--border) solid var(--line);
+}
+
+.totalValue {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-24);
+}
+
+.text {
+  color: var(--text-muted);
+  font-size: var(--fs-16);
+  max-width: var(--measure);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.section {
+  padding-top: var(--rhythm-loose);
+  display: grid;
+  gap: var(--space-24);
+}

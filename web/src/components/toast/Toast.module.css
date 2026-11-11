@@ -1,0 +1,75 @@
+.region {
+  position: fixed;
+  z-index: var(--z-toast);
+  right: var(--space-16);
+  bottom: calc(var(--space-16) + env(safe-area-inset-bottom));
+  display: grid;
+  gap: var(--space-8);
+  width: min(100vw - 2 * var(--space-16), 24rem);
+  pointer-events: none;
+}
+
+.toast {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-4) var(--space-12);
+  align-items: start;
+  padding: var(--space-12) var(--space-12) var(--space-12) var(--space-16);
+  background: var(--surface-floating);
+  box-shadow: var(--elev-floating-ring);
+  border-radius: var(--radius);
+  pointer-events: auto;
+  animation: in var(--dur-element) var(--ease-out);
+}
+
+.icon {
+  padding-top: 2px;
+}
+
+.success .icon {
+  color: var(--success);
+}
+
+.danger .icon {
+  color: var(--danger);
+}
+
+.info .icon {
+  color: var(--info);
+}
+
+.warning .icon {
+  color: var(--warning);
+}
+
+.title {
+  font-weight: var(--wght-semibold);
+  font-size: var(--fs-14);
+  line-height: 1.4;
+}
+
+.body {
+  grid-column: 2;
+  font-size: var(--fs-14);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.body a {
+  color: var(--text);
+}
+
+@media (max-width: 40rem) {
+  .region {
+    left: var(--space-16);
+    right: var(--space-16);
+    width: auto;
+  }
+}
+
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-8));
+  }
+}
