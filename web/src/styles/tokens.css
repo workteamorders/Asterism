@@ -215,6 +215,22 @@
   --instrument-spinner: 800ms;
   --instrument-reveal-opacity: 0.35;
 
+  /* Stage motion: scroll reveals, headline words, ticker, phase stage, counters. */
+  --rise-distance: var(--space-32);
+  --rise-step: 80ms;
+  --rise-duration: 720ms;
+  --stage-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --word-step: 70ms;
+  --word-duration: 820ms;
+  --hero-step: 110ms;
+  --marquee-duration: 56s;
+  --marquee-gap: var(--space-48);
+  --stage-top: calc(var(--space-64) + var(--space-32));
+  --stage-fade: 520ms;
+  --parallax-distance: var(--space-64);
+  --scroll-progress-height: 2px;
+  --count-duration: 1400;
+
   /* Layers. */
   --z-header: 10;
   --z-overlay: 40;

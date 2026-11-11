@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { InstrumentMotion } from "@/components/fieldscape/InstrumentMotion";
 import { Fieldscape } from "@/components/fieldscape/Fieldscape";
+import { Rise } from "@/components/motion/Rise";
 import { Providers } from "@/components/providers/Providers";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -60,6 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Fieldscape />
         <InstrumentMotion />
+        <Rise />
+        <div className="scroll-progress" aria-hidden="true" />
         <a className="skip-link" href="#main">
           Skip to main content
         </a>

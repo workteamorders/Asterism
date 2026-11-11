@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { HeroArt } from "@/components/home/HeroArt";
 import { LiveReadout } from "@/components/home/LiveReadout";
@@ -6,6 +7,11 @@ import { AsterismImage } from "@/components/asterism/AsterismImage";
 import { Badge } from "@/components/badge/Badge";
 import { ButtonLink } from "@/components/button/ButtonLink";
 import { Icon } from "@/components/icon/Icon";
+import { CountUp } from "@/components/motion/CountUp";
+import { Marquee } from "@/components/motion/Marquee";
+import { PhaseStage, type Phase } from "@/components/motion/PhaseStage";
+import { SplitText } from "@/components/motion/SplitText";
+import m from "@/components/motion/motion.module.css";
 import { asterismFor, asterismUri, EXAMPLE_SEED } from "@/lib/asterism/preview";
 import { MARK_NAMES, TIER_COUNTS, TIER_NAMES, TIER_STARS } from "@/lib/asterism/spec";
 import { AUDIT_REPORT_URL } from "@/lib/env";
@@ -14,6 +20,41 @@ import s from "./home.module.css";
 // One example per tier from the example seed, chosen at build time.
 const TIER_EXAMPLES = [23, 1, 142, 38, 97];
 const LIQUIDITY_PERCENT = 6667 / 100;
+
+const FACTS = [
+  "2,222 hybrid tokens",
+  "One whole token, one asterism",
+  "Fixed price sale",
+  "No transfer tax",
+  "No owner, no admin",
+  "Liquidity locked by code",
+  "Full refund if not finalized",
+  "Seed committed before the sale",
+  "Art drawn on-chain as SVG",
+] as const;
+
+const PHASES: readonly Phase[] = [
+  {
+    label: "PHASE 1 · SALE",
+    title: "Buy whole tokens",
+    body: "Up to 1,333 tokens are sold at one fixed price, at most 5 per transaction and 10 per wallet. Each whole token mints one unrevealed asterism to you. Transfers stay locked until the launch is finalized.",
+    caption: "Sealed: each token holds an asterism nobody has seen yet.",
+  },
+  {
+    label: "PHASE 2 · FINALIZE",
+    title: "Liquidity, then trading",
+    body: "Anyone can finalize once the sale sells out or ends. A Uniswap V2 pool opens at exactly the sale price and its liquidity is locked forever. If nobody finalizes in time, every buyer can get a full refund.",
+    caption: "The pool opens at the sale price and its liquidity is locked.",
+  },
+  {
+    label: "PHASE 3 · REVEAL",
+    title: "The seed is revealed",
+    body: "The secret committed before the sale is published and combined with the purchase history. That fixes every tier and every star. If the revealer stays silent, anyone can trigger a fallback seed after the deadline.",
+    caption: "The seed is published and every star and line is fixed.",
+  },
+];
+const PHASE_EXAMPLE = asterismFor(EXAMPLE_SEED, 97);
+const order = (n: number, name = "--rise-order") => ({ [name]: n }) as CSSProperties;
 
 const CHECKS = [
   "No owner and no admin. No function can change a parameter, pause trading, or move funds outside the rules.",
@@ -28,28 +69,34 @@ export default function Home() {
     <Main>
       <section className={s.hero} aria-labelledby="hero-title">
         <div className={s.heroText}>
-          <span className={s.kicker}>On-chain asterisms · Robinhood Chain</span>
+          <span className={`${s.kicker} ${m.heroIn}`} style={order(0, "--hero-order")}>
+            On-chain asterisms · Robinhood Chain
+          </span>
           <h1 className="t-display" id="hero-title">
-            Every asterism is drawn by the contract.
+            <SplitText text="Every asterism is drawn by the contract." />
           </h1>
-          <p className={s.lead}>
+          <p className={`${s.lead} ${m.heroSlide}`} style={order(5, "--hero-order")}>
             2,222 hybrid tokens. One whole token carries one asterism: stars, lines and a tier mark rendered as SVG on-chain from
             a seed revealed after the sale. Fixed price, no tax, and pool liquidity that can never be withdrawn.
           </p>
-          <div className={s.actions}>
+          <div className={`${s.actions} ${m.heroIn}`} style={order(6, "--hero-order")}>
             <PrimaryLink />
             <Link href="/rules/" className="t-small">
               How it works
             </Link>
           </div>
         </div>
-        <div className={s.heroVisual}>
-          <HeroArt />
+        <div className={`${s.heroVisual} ${m.parallax}`}>
+          <div className={m.heroSlide} style={order(3, "--hero-order")}>
+            <HeroArt />
+          </div>
         </div>
-        <div className={s.heroStatus}>
+        <div className={`${s.heroStatus} ${m.heroIn}`} style={order(7, "--hero-order")}>
           <LiveReadout />
         </div>
       </section>
+
+      <Marquee items={FACTS} label="Launch facts" />
 
       <section className={s.section} data-reveal aria-labelledby="tiers-title">
         <div className={s.sectionHead}>
@@ -66,11 +113,13 @@ export default function Home() {
             const a = asterismFor(EXAMPLE_SEED, id);
             const [lo, hi] = TIER_STARS[t]!;
             return (
-              <div key={id} className={s.tier}>
+              <div key={id} className={s.tier} data-rise="" style={order(t)}>
                 <AsterismImage geometry={a} src={asterismUri(EXAMPLE_SEED, id)} alt={`Example ${TIER_NAMES[a.tier]} asterism with ${a.stars.length} stars.`} size={240} />
                 <span className={s.tierName}>
                   {TIER_NAMES[t]}
-                  <span className="t-mono t-muted">{TIER_COUNTS[t]!.toLocaleString("en-US")}</span>
+                  <span className="t-mono t-muted">
+                    <CountUp value={TIER_COUNTS[t]!} />
+                  </span>
                 </span>
                 <span className={s.tierMeta}>
                   {lo} to {hi} stars · {MARK_NAMES[t]}
@@ -92,32 +141,7 @@ export default function Home() {
           </h2>
           <p>Three phases, all enforced by the contracts. Nobody can skip, extend, or undo a phase.</p>
         </div>
-        <ol className={s.phases}>
-          <li className={s.phase}>
-            <span className={s.phaseLabel}>PHASE 1 · SALE</span>
-            <h3>Buy whole tokens</h3>
-            <p>
-              Up to 1,333 tokens are sold at one fixed price, at most 5 per transaction and 10 per wallet. Each whole token mints one
-              unrevealed asterism to you. Transfers stay locked until the launch is finalized.
-            </p>
-          </li>
-          <li className={s.phase}>
-            <span className={s.phaseLabel}>PHASE 2 · FINALIZE</span>
-            <h3>Liquidity, then trading</h3>
-            <p>
-              Anyone can finalize once the sale sells out or ends. A Uniswap V2 pool opens at exactly the sale price and its
-              liquidity is locked forever. If nobody finalizes in time, every buyer can get a full refund.
-            </p>
-          </li>
-          <li className={s.phase}>
-            <span className={s.phaseLabel}>PHASE 3 · REVEAL</span>
-            <h3>The seed is revealed</h3>
-            <p>
-              The secret committed before the sale is published and combined with the purchase history. That fixes every tier and
-              every star. If the revealer stays silent, anyone can trigger a fallback seed after the deadline.
-            </p>
-          </li>
-        </ol>
+        <PhaseStage phases={PHASES} geometry={PHASE_EXAMPLE} />
       </section>
 
       <section className={s.section} data-reveal aria-labelledby="money-title">

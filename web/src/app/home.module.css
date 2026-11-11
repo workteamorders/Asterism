@@ -259,3 +259,19 @@
 
 .section:nth-of-type(even) { --reveal-order: 1; }
 .section:nth-of-type(odd) { --reveal-order: 2; }
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-revealed] .splitLiquidity {
+    animation: bar-grow calc(var(--rise-duration) * 1.6) var(--stage-ease) var(--rise-step) backwards;
+  }
+
+  [data-revealed] .splitTreasury {
+    animation: bar-grow calc(var(--rise-duration) * 1.6) var(--stage-ease) calc(var(--rise-step) * 4) backwards;
+  }
+}
+
+@keyframes bar-grow {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}

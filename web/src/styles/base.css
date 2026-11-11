@@ -144,6 +144,10 @@ a:hover {
   font-variant-numeric: tabular-nums;
 }
 
+.t-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
 .t-figure {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -273,5 +277,45 @@ body {
   from {
     opacity: var(--instrument-reveal-opacity);
     transform: translateY(var(--instrument-reveal-distance));
+  }
+}
+
+/* Reading progress: a hairline across the top, driven by scroll position. Browsers without scroll-driven animations show nothing. */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: calc(var(--z-header) + 1);
+  height: var(--scroll-progress-height);
+  background: var(--starlight);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      animation: scroll-progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes scroll-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-rise="wait"] {
+    opacity: 0;
+    translate: 0 var(--rise-distance);
+  }
+
+  [data-rise="in"] {
+    transition:
+      opacity var(--rise-duration) var(--stage-ease) calc(var(--rise-order, 0) * var(--rise-step)),
+      translate var(--rise-duration) var(--stage-ease) calc(var(--rise-order, 0) * var(--rise-step));
   }
 }
