@@ -204,3 +204,74 @@ a:hover {
 html[data-scroll-lock="true"] {
   overflow: hidden;
 }
+
+body {
+  isolation: isolate;
+}
+
+.measurement-field {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--field-ground);
+}
+
+.cursor-reticle {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: var(--z-overlay);
+  width: var(--instrument-reticle);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: var(--border) solid var(--line-strong);
+  clip-path: var(--instrument-profile);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .cursor-reticle { display: none; }
+}
+
+[data-inspection] {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-enter {
+    animation: section-enter var(--instrument-trace) var(--ease-out) backwards;
+    animation-delay: calc(var(--reveal-order, 0) * var(--instrument-reveal-step));
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-magnet][data-tracking]:not(:disabled):not([aria-disabled=true]):not([aria-busy=true]):not(:focus-visible) {
+    translate: calc(var(--pointer-x) * var(--instrument-magnet)) calc(var(--pointer-y) * var(--instrument-magnet));
+  }
+
+  [data-inspection] {
+    transition: transform var(--dur-element) var(--ease-out);
+  }
+
+  [data-inspection][data-tracking]:not(:focus-visible) {
+    transform: rotateX(calc(var(--pointer-y) * var(--instrument-tilt) * -1)) rotateY(calc(var(--pointer-x) * var(--instrument-tilt)));
+  }
+
+  [data-inspection][data-tracking]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--border) solid var(--starlight);
+    clip-path: circle(var(--space-32) at calc(50% + var(--pointer-x) * 50%) calc(50% + var(--pointer-y) * 50%));
+    pointer-events: none;
+  }
+}
+
+@keyframes section-enter {
+  from {
+    opacity: var(--instrument-reveal-opacity);
+    transform: translateY(var(--instrument-reveal-distance));
+  }
+}

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Fieldscape } from "@/components/fieldscape/Fieldscape";
 import { Providers } from "@/components/providers/Providers";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${archivo.variable} ${martian.variable}`}>
       <body>
+        <Fieldscape />
         <a className="skip-link" href="#main">
           Skip to main content
         </a>
