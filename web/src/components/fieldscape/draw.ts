@@ -1,4 +1,5 @@
 import { EXAMPLE_SEED } from "@/lib/asterism/preview";
+import { mountLens } from "./lens";
 import { fieldLayout, shouldAnimate } from "./layout";
 
 export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
@@ -37,6 +38,16 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
   let reticleX = 0;
   let reticleY = 0;
   let grid = new Path2D();
+  let lensCanvas: HTMLCanvasElement | null = null;
+  let lens: ReturnType<typeof mountLens>;
+
+  function connectLens() {
+    const canvas = document.querySelector<HTMLCanvasElement>("canvas[data-field-lens]");
+    if (canvas === lensCanvas) return;
+    lens?.dispose();
+    lensCanvas = canvas;
+    lens = canvas ? mountLens(canvas, number("dpr-limit")) : undefined;
+  }
 
   function draw(ctx: CanvasRenderingContext2D, dt: number, animated: boolean) {
     ctx.clearRect(0, 0, width, height);
@@ -109,6 +120,7 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
     previous = now;
     elapsed += dt;
     draw(context, dt, true);
+    lens?.draw(elapsed, dt, true);
     frame = requestAnimationFrame(tick);
   }
 
@@ -120,6 +132,7 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
       frame = previous = 0;
       clearPointer();
       ring = null;
+      lens?.stop();
       if (onscreen && !document.hidden) draw(context, 0, false);
     }
   }
@@ -152,6 +165,7 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
 
   function clearPointer() {
     pointer = null;
+    lens?.leave();
     reticle.hidden = true;
   }
 
@@ -165,6 +179,7 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
       reticle.style.translate = `${x}px ${y}px`;
     }
     pointer = { x, y };
+    lens?.move(x, y);
     reticle.hidden = false;
   }
 
@@ -172,6 +187,7 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
     if (!frame || !event.isPrimary || event.button !== 0 || elapsed - lastTap < tapGap) return;
     lastTap = elapsed;
     ring = { x: event.clientX, y: event.clientY, start: elapsed };
+    lens?.tap(event.clientX, event.clientY, elapsed);
   }
 
   const observer = new IntersectionObserver(([entry]) => {
@@ -179,12 +195,16 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
     sync();
   });
   resize();
+  connectLens();
+  const navigation = new MutationObserver(connectLens);
+  navigation.observe(document.body, { childList: true, subtree: true });
   observer.observe(canvas);
   const sizeObserver = new ResizeObserver(resize);
   sizeObserver.observe(canvas);
   window.addEventListener("pointermove", move, { passive: true });
   window.addEventListener("pointerdown", tap, { passive: true });
   window.addEventListener("blur", clearPointer);
+  window.addEventListener("scroll", clearPointer, { passive: true });
   document.documentElement.addEventListener("pointerleave", clearPointer);
   document.addEventListener("visibilitychange", sync);
   reduced.addEventListener("change", sync);
@@ -192,10 +212,13 @@ export function mountField(canvas: HTMLCanvasElement, reticle: HTMLElement) {
   return () => {
     cancelAnimationFrame(frame);
     observer.disconnect();
+    navigation.disconnect();
+    lens?.dispose();
     sizeObserver.disconnect();
     window.removeEventListener("pointermove", move);
     window.removeEventListener("pointerdown", tap);
     window.removeEventListener("blur", clearPointer);
+    window.removeEventListener("scroll", clearPointer);
     document.documentElement.removeEventListener("pointerleave", clearPointer);
     document.removeEventListener("visibilitychange", sync);
     reduced.removeEventListener("change", sync);

@@ -160,6 +160,25 @@
   --field-full-patches: 6;
   --field-compact-patches: 3;
 
+  /* Hero optics. Brighter inks are confined to the artwork tray. */
+  --lens-ground: #0b0c0d;
+  --lens-grid: #252627;
+  --lens-edge: #62605a;
+  --lens-star: #a39d8e;
+  --lens-scan: #c1b59e;
+  --lens-size: 0.76;
+  --lens-point: 1.8;
+  --lens-pitch: 32;
+  --lens-tick: 5;
+  --lens-period: 7200;
+  --lens-ease-period: 185;
+  --lens-band: 64;
+  --lens-reticle-radius: 42;
+  --lens-ring-period: 1100;
+  --lens-ring-limit: 150;
+  --lens-preview-width: 59%;
+  --lens-tray-max: 35rem;
+
   /* Instrument controls. */
   --instrument-corner: var(--space-8);
   --instrument-profile: polygon(0 0, calc(100% - var(--instrument-corner)) 0, 100% var(--instrument-corner), 100% 100%, var(--instrument-corner) 100%, 0 calc(100% - var(--instrument-corner)));

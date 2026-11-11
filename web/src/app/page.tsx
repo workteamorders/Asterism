@@ -42,9 +42,13 @@ export default function Home() {
               How it works
             </Link>
           </div>
+        </div>
+        <div className={s.heroVisual}>
+          <HeroArt />
+        </div>
+        <div className={s.heroStatus}>
           <LiveReadout />
         </div>
-        <HeroArt />
       </section>
 
       <section className={s.section} data-reveal aria-labelledby="tiers-title">

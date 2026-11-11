@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { EXAMPLE_SEED } from "@/lib/asterism/preview";
+import { lensPosition } from "@/components/fieldscape/lens";
 import { fieldLayout, shouldAnimate } from "@/components/fieldscape/layout";
 import { interpolateCount } from "@/components/meter/count";
 import { contrast } from "@/lib/color";
@@ -32,6 +33,13 @@ describe("measurement field", () => {
         expect(contrast(color(text), color(`field-${layer}`))).toBeGreaterThanOrEqual(contrast(color(text), color("surface")));
       }
     }
+  });
+
+  it("sweeps through the artwork tray and loops without jumping", () => {
+    const start = lensPosition(0, 7200, 400, 400, 0.75);
+    const middle = lensPosition(3600, 7200, 400, 400, 0.75);
+    expect(middle.x - start.x).toBeCloseTo(300);
+    expect(lensPosition(7200, 7200, 400, 400, 0.75)).toEqual(start);
   });
 
   it("only schedules motion while visible and permitted", () => {

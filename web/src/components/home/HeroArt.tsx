@@ -21,16 +21,19 @@ export function HeroArt() {
   const src = useMemo(() => asterismUri(seed, id), [seed, id]);
   return (
     <figure className={styles.heroArt}>
-      <div className={styles.heroFrame} data-constellation tabIndex={0}>
-        {/* eslint-disable-next-line @next/next/no-img-element -- on-chain SVG as data URI */}
-        <img
-          src={src}
-          width={400}
-          height={400}
-          alt={`${revealed ? "" : "Example "}asterism ${id}: ${TIER_NAMES[a.tier]} tier, ${a.stars.length} stars, ${MARK_NAMES[a.tier].toLowerCase()} primary mark.`}
-          fetchPriority="high"
-        />
-        <ConstellationTrace geometry={a} />
+      <div className={styles.heroStage}>
+        <canvas className={styles.lens} data-field-lens aria-hidden="true" />
+        <div className={styles.heroFrame} data-constellation tabIndex={0}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- on-chain SVG as data URI */}
+          <img
+            src={src}
+            width={400}
+            height={400}
+            alt={`${revealed ? "" : "Example "}asterism ${id}: ${TIER_NAMES[a.tier]} tier, ${a.stars.length} stars, ${MARK_NAMES[a.tier].toLowerCase()} primary mark.`}
+            fetchPriority="high"
+          />
+          <ConstellationTrace geometry={a} />
+        </div>
       </div>
       <figcaption className={styles.heroCaption}>
         {revealed ? <Badge icon="reticle">Asterism #{id}</Badge> : <Badge tone="example">Example · seed not revealed</Badge>}
